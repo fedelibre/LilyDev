@@ -12,7 +12,7 @@ can be loaded on virtual machine software on Mac and Windows.
 
 Requirements: Linux host, systemd-nspawn.
 
-Download the latest [https://github.com/fedelibre/LilyDevOS/releases](release).
+Download the latest [release](https://github.com/fedelibre/LilyDevOS/releases).
 You need root privileges to extract the content, so you'd better do it on
 the command line:
 
