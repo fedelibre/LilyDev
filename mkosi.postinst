@@ -1,0 +1,4 @@
+#!/bin/sh
+useradd dev -p lilypond
+usermod dev -a -G wheel
+
