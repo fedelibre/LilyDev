@@ -1,0 +1,55 @@
+[Distribution]
+Distribution=fedora
+Release=26
+
+[Output]
+Format=raw_btrfs
+Bootable=yes
+
+[Partitions]
+# During the build about 4.5G are needed, but the final image will be a bit smaller
+RootSize=5G
+
+[Packages]
+Packages=
+    # Desktop packages
+    @lxqt-desktop-environment
+    firefox
+    geany
+    spice-vdagent
+    xpdf
+    # Useful packages
+    autoconf
+    ca-certificates
+    dnf
+    gcc-c++
+    git
+    gitk
+    less
+    make
+    nano
+    sudo
+    # LilyPond dependencies
+    # See Buildrequires here: http://pkgs.fedoraproject.org/cgit/rpms/lilypond.git/tree/lilypond.spec
+    t1utils
+    bison
+    flex
+    ImageMagick
+    gettext
+    python-devel
+    mftrace
+    texinfo
+    compat-guile18-devel
+    ghostscript
+    pango-devel
+    fontpackages-devel
+    dblatex
+    texinfo-tex
+    #texi2html # Fedora package is too recent, we need version 1.82
+    perl-Math-Complex
+    perl-Pod-Parser
+    rsync
+    texlive-collection-langcyrillic
+    texlive-metapost
+    texlive-tex-gyre
+
