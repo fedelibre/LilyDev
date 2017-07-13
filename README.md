@@ -86,6 +86,15 @@ in the container from your host as you wish, using a file manager or your
 favorite GUI text editor.
 
 
+## Guile 2
+
+The images contain only `guile-1.8`, the version needed for the regular
+contributor.  Who wants to work on migration to guile-2 should install
+this package:
+
+    sudo dnf install guile-devel
+
+
 ## How to contribute to this repository
 
 [mkosi](https://github.com/systemd/mkosi/) required version is 3 or later.
