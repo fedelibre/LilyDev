@@ -50,7 +50,7 @@ then move it up to the list so it will be the default.
 ### Container
 
 Runs on: Linux only.
-Requirements: systemd.
+Requirements: systemd-nspawn, available in `systemd-container` package.
 
 It's the best choice if you want to run LilyDevOS in a Linux host: lightweight,
 full access to host system resource (including RAM), easy access from host
@@ -84,6 +84,22 @@ in the container have the same uid (probably 1000, use the command `id`
 to find it out).  If that's the case, you can easily access and edit the files
 in the container from your host as you wish, using a file manager or your
 favorite GUI text editor.
+In case the id is different, read [this tutorial on changing UID and GID]
+(https://muffinresearch.co.uk/linux-changing-uids-and-gids-for-user/).
+
+Finally, you might need to run a graphical application from the container,
+for example gitk.  This is not allowed, unless you specify the display
+you want to use.  Check it out in the host with this command:
+
+    echo $DISPLAY
+
+If the output is `:0`, then test it in the container with:
+
+    DISPLAY=:0 gitk
+
+and add it as alias so you can type just `gitk`:
+
+    echo 'alias gitk="DISPLAY=:0 gitk"' >> /home/dev/.bashrc
 
 
 ## Guile 2
