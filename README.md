@@ -22,9 +22,8 @@ this command (in Linux):
 
     sha256sum lilydevos-vm-VERSION.raw
 
-In Linux there are several VM GUI managers, like Virt Manager or Gnome Boxes.
-But you can also use the command line.  Something like this should work (tested
-on Fedora):
+In Linux you can test it quickly by using something like this (tested on
+Fedora.. the location of `OVMF_CODE.fd` might be different in other distros):
 
     qemu-kvm -m 512 -smp 2 -bios /usr/share/edk2/ovmf/OVMF_CODE.fd -drive format=raw,file=lilydevos-vm-VERSION.raw
 
@@ -33,6 +32,25 @@ of 2G.  If you can assign 1024M, even better.
 In case you see some weird error while compiling lilypond, your guest might be
 running out of memory (check the RAM available with the command `free -m`)
 and you should try assigning more RAM to the virtual machine.
+
+Once you are sure about the suitable settings, you'd better *register* the
+virtual machine in libvirt or, in libvirt terms, *define a domain*.  Enter
+the directory where you saved the .raw file and launch this command:
+
+    virt-install --name lilydevos-vm-VERSION --memory 1024 --os-type=linux \
+    --os-variant=fedora25 --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd \
+    --network=default --disk /FULL/PATH/TO/lilydevos-vm-VERSION.raw \
+    --noautoconsole --import
+
+(available OS variants are listed by the command `osinfo-query os`)
+
+Now the virtual machine will be available on all libvirt clients, such as
+[virt-manager](https://virt-manager.org/) or
+[GNOME Boxes](https://wiki.gnome.org/Apps/Boxes).
+If you still want to launch it from command-line, use these commands:
+
+    virsh start lilydevos-vm-VERSION
+    virt-viewer --connect qemu:///session lilydevos-vm-VERSION
 
 You'll log in as `dev` user (the password is `lilypond`).
 
