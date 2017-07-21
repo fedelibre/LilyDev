@@ -119,6 +119,16 @@ and add it as alias so you can type just `gitk`:
 
     echo 'alias gitk="DISPLAY=:0 gitk"' >> /home/dev/.bashrc
 
+The container does not include a browser, which is needed to log in to Rietveld
+while uploading the patch via `git-cl`.  Unfortunately I could not find any text
+browser which worked with `git-cl`.  As installing a graphical browser would
+add several dependencies and I want to keep the container as small as possible,
+the best solution is launching `git-cl` from the host.  Otherwise you may
+install a browser in the container and add an alias similar to the above, e.g.:
+
+    sudo dnf install firefox
+    echo 'alias firefox="DISPLAY=:0 firefox"' >> /home/dev/.bashrc
+
 
 ## Guile 2
 
