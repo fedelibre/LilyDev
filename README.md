@@ -90,9 +90,17 @@ the regular user `dev`, go to the home directory and run the setup.sh script:
 
     su dev
     cd
-    ./setup.sh
+    ./setup.sh    # this should be run only the first time
 
 You are now ready to start contributing to LilyPond.
+
+When you've done, you can shutdown the machine with these commands:
+
+    $ exit
+    # shutdown -h now
+
+(the first command will let you go back from dev user to root user,
+who has the privileges to shutdown the system)
 
 Remember that `dev` user can get root privileges with `sudo` (even if you
 should not need it). The password is `lilypond`.
