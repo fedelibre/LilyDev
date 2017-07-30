@@ -110,8 +110,8 @@ in the container have the same uid (probably 1000, use the command `id`
 to find it out).  If that's the case, you can easily access and edit the files
 in the container from your host as you wish, using a file manager or your
 favorite GUI text editor.
-In case the id is different, read [this tutorial on changing UID and GID]
-(https://muffinresearch.co.uk/linux-changing-uids-and-gids-for-user/).
+In case the id is different, read
+[this tutorial on changing UID and GID](https://muffinresearch.co.uk/linux-changing-uids-and-gids-for-user/).
 
 Finally, you might need to run a graphical application from the container,
 for example gitk.  This is not allowed, unless you specify the display
