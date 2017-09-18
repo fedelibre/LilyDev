@@ -150,9 +150,9 @@ this package:
 ## How to contribute to this repository
 
 [mkosi](https://github.com/systemd/mkosi/) required version is 3 or later.
+
 If your distro has an older version, you should install it from source.
 Dependencies are listed on mkosi README.
-
 Then download the repository and run the installation:
 
     git clone git@github.com:systemd/mkosi.git
