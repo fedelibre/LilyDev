@@ -27,5 +27,4 @@ export LILYPOND_BUILD_DIR=~/lilypond-git/build
 export LILYPOND_WEB_MEDIA_GIT=~/lilypond-extra
 
 # Add other directories to the PATH
-export PATH=$HOME/git-cl:$PATH
-
+export PATH=$HOME/git-cl:$LILYPOND_GIT/scripts/auxiliar:$PATH
