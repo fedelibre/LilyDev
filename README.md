@@ -113,9 +113,11 @@ favorite GUI text editor.
 In case the id is different, read
 [this tutorial on changing UID and GID](https://muffinresearch.co.uk/linux-changing-uids-and-gids-for-user/).
 
-Finally, you might need to run a graphical application from the container,
-for example gitk.  This is not allowed, unless you specify the display
-you want to use.  Check it out in the host with this command:
+#### Running graphical applications from the container
+
+You might need to run one or more graphical applications from the container,
+for example gitk or lily-git.  This is not allowed, unless you specify the
+display you want to use.  Check it out in the host with this command:
 
     echo $DISPLAY
 
@@ -123,9 +125,11 @@ If the output is `:0`, then test it in the container with:
 
     DISPLAY=:0 gitk
 
-and add it as alias so you can type just `gitk`:
+If it works, add the alias so you can type just `gitk`:
 
     echo 'alias gitk="DISPLAY=:0 gitk"' >> /home/dev/.bashrc
+
+Do the same for any other application you may need.
 
 The container does not include a browser, which is needed to log in to Rietveld
 while uploading the patch via `git-cl`.  Unfortunately I could not find any text
@@ -164,4 +168,3 @@ Usage is printed with this command:
     mkosi --help
 
 The commands used to build the images are in the Makefile.
-
