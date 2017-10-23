@@ -1,0 +1,79 @@
+[Distribution]
+Distribution=debian
+Release=stretch
+
+[Output]
+Format=directory
+
+[Packages]
+# We need a network connection when running mkosi.postinst
+WithNetwork=yes
+Packages=
+    # Useful packages
+    aptitude
+    bash-completion
+    ca-certificates
+    git
+    gitk
+    less
+    make
+    nano
+    sudo
+    wget
+    # LilyPond dependencies
+    autoconf
+    autotools-dev
+    bison
+    curl
+    dblatex
+    debhelper
+    emacs-intl-fonts
+    extractpdfmark
+    flex
+    fontforge
+    fonts-dejavu
+    fonts-freefont-ttf
+    fonts-ipafont-gothic
+    fonts-ipafont-mincho
+    fonts-texgyre
+    gettext
+    ghostscript
+    groff
+    gsfonts
+    gsfonts-x11
+    #guile-2.0-dev # can be uncommented when lilypond will work with guile-2
+    g++
+    help2man
+    imagemagick
+    libfl-dev
+    libfontconfig1-dev
+    libfreetype6-dev
+    libgmp3-dev
+    libltdl-dev
+    libpango1.0-dev
+    lmodern
+    m4
+    mftrace
+    netpbm
+    pkg-config
+    python-all-dev
+    quilt
+    rsync
+    texi2html
+    texinfo
+    texlive-fonts-recommended
+    texlive-generic-recommended
+    texlive-lang-cyrillic
+    texlive-latex-base
+    texlive-latex-recommended
+    texlive-metapost
+    texlive-xetex
+    xfonts-intl-arabic
+    xfonts-intl-asian
+    xfonts-intl-chinese
+    xfonts-intl-chinese-big
+    xfonts-intl-european
+    xfonts-intl-japanese
+    xfonts-intl-japanese-big
+    xfonts-intl-phonetic
+    zip
