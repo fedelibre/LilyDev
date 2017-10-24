@@ -1,0 +1,76 @@
+#!/bin/sh
+useradd dev
+usermod dev -a -G wheel
+echo 'dev:lilypond'|chpasswd
+
+cat >> /home/dev/.bashrc <<EOF
+### LilyDev custom settings ###
+
+# This variable is needed to be able to access the X display in the host
+# when running graphical applications, such as gitk or lily-git.cl.
+# NOTE: The value of DISPLAY must be the same as in the host (usually it's :0,
+# so we made this assumption); the user id of guest and host users must be the
+# same (it should be the same, i.e. 1000), otherwise access to the display
+# won't be granted.
+export DISPLAY=:0
+
+# Prompt settings
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWUPSTREAM=auto
+export PS1='[\u@\h:\W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\$ '
+
+# Default editor
+export EDITOR=/bin/nano
+
+# Variables needed to build LilyPond
+export LILYPOND_GIT=~/lilypond-git
+export LILYPOND_BUILD_DIR=~/lilypond-git/build
+export LILYPOND_WEB_MEDIA_GIT=~/lilypond-extra
+
+# Add other directories to the PATH
+export PATH=~/git-cl:~/lilypond-git/scripts/auxiliar:$PATH
+EOF
+
+# Build texi2html 1.82
+wget http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz
+tar -xf texi2html-1.82.tar.gz
+cd texi2html-1.82
+./configure
+make
+make install
+
+# Build extractpdfmark
+dnf install automake gettext-devel poppler-devel
+git clone https://github.com/trueroad/extractpdfmark.git
+cd extractpdfmark
+./autogen.sh
+./configure
+make
+make install
+
+# Download URW35 OpenType files.
+# These lines can be removed if urw-base35-fonts package will include otf files.
+URW35FONTS=\
+"C059-BdIta.otf
+C059-Bold.otf
+C059-Italic.otf
+C059-Roman.otf
+NimbusMonoPS-Bold.otf
+NimbusMonoPS-BoldItalic.otf
+NimbusMonoPS-Italic.otf
+NimbusMonoPS-Regular.otf
+NimbusSans-Bold.otf
+NimbusSans-BoldOblique.otf
+NimbusSans-Oblique.otf
+NimbusSans-Regular.otf"
+
+# Download each font file
+for font in $URW35FONTS
+do
+  # The URL GET parameter f=$font will be replaced with the font file name
+  WGETURL="http://git.ghostscript.com/?p=urw-core35-fonts.git;a=blob;hb=79bcdfb34fbce12b592cce389fa7a19da6b5b018;f=$font;"
+  # wget options: less verbose, create directory, don't make host directory,
+  # use file name from HTTP header, set download location
+  wget -nv -x -nH --content-disposition -P /home/dev/.local/share/fonts "$WGETURL"
+done
