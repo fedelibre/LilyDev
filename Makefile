@@ -1,22 +1,33 @@
-RELEASE = 0.1
+RELEASE = 0.2
 
-SOURCES = mkosi.fedora mkosi.postinst $(wildcard mkosi.extra/*)
+DEBIAN_SOURCES = debian/mkosi.debian debian/mkosi.postinst $(wildcard debian/mkosi.extra/*)
+FEDORA_SOURCES = fedora/mkosi.fedora fedora/mkosi.postinst $(wildcard fedora/mkosi.extra/*)
 
-.PHONY: all
-all: lilydevos-$(RELEASE) lilydevos-vm-$(RELEASE)
+.PHONY: all clean debian fedora release vm-fedora
+all: debian fedora
 
-lilydevos-$(RELEASE): $(SOURCES)
-	sudo mkosi --default mkosi.fedora --password="" -o lilydevos-$(RELEASE)
+debian: lilydev-debian-$(RELEASE)
+lilydev-debian-$(RELEASE): $(DEBIAN_SOURCES)
+	cd debian && sudo mkosi -f --default mkosi.debian --password="" -o $(PWD)/lilydev-debian-$(RELEASE)
 
-lilydevos-vm-$(RELEASE): $(SOURCES)
-	sudo mkosi --checksum --default mkosi.fedora-lxqt -o lilydevos-vm-$(RELEASE).raw
+fedora: lilydev-fedora-$(RELEASE)
+lilydev-fedora-$(RELEASE): $(FEDORA_SOURCES)
+	cd fedora && sudo mkosi -f --default mkosi.fedora --password="" -o $(PWD)/lilydev-fedora-$(RELEASE)
 
-.PHONY: release
-release: lilydevos-$(RELEASE).tar.xz lilydevos-vm-$(RELEASE).zip
+vm-fedora: lilydev-vm-fedora-$(RELEASE).raw
+lilydev-vm-fedora-$(RELEASE).raw: $(FEDORA_SOURCES)
+	cd fedora && sudo mkosi -f --checksum --default mkosi.fedora-lxqt -o $(PWD)/lilydev-vm-fedora-$(RELEASE).raw
 
-lilydevos-$(RELEASE).tar.xz:
-	sudo tar -cJf lilydevos-$(RELEASE).tar.xz lilydevos-$(RELEASE)
+release: lilydev-debian-$(RELEASE).tar.xz lilydev-fedora-$(RELEASE).tar.xz lilydev-vm-fedora-$(RELEASE).zip
 
-lilydevos-vm-$(RELEASE).zip:
-	sudo zip lilydevos-vm-$(RELEASE).zip SHA256SUMS lilydevos-vm-$(RELEASE).raw
+lilydev-debian-$(RELEASE).tar.xz:
+	sudo tar -vcJf lilydev-debian-$(RELEASE).tar.xz lilydev-debian-$(RELEASE)
 
+lilydev-fedora-$(RELEASE).tar.xz:
+	sudo tar -vcJf lilydev-fedora-$(RELEASE).tar.xz lilydev-fedora-$(RELEASE)
+
+lilydev-vm-fedora-$(RELEASE).zip:
+	sudo zip -v lilydev-vm-fedora-$(RELEASE).zip SHA256SUMS lilydev-vm-fedora-$(RELEASE).raw
+
+clean:
+	sudo rm -rf lilydev* SHA256SUMS

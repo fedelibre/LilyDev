@@ -1,6 +1,4 @@
-/image
-/image.nspawn
-/image.raw
-/mkosi.cache
-/lilydevos-*
-/SHA256SUMS
+*.lck
+lilydev*
+mkosi.cache
+SHA256SUMS
