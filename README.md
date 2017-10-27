@@ -1,15 +1,15 @@
 # LilyDevOS
 
-This repository is meant to be an alternative to
+This repository, named LilyDevOS, is the replacement of
 [LilyDev](https://github.com/fedelibre/LilyDev).
+Even if the final product will still be called LilyDev, this
+is the place where the images will be created from now on.
 
-It provides two different options: a lightweight container for Linux hosts
-only and a full VM image for all operating systems.
+Two different options are provided: a full VM image for all operating systems
+and lightweight containers (currently based on Fedora and Debian) which can be run only on Linux hosts.
 
 
-## How to use the images
-
-### Full virtual machine
+## Full virtual machine
 
 Runs on: any OS with a Virtual Machine software.
 
@@ -65,7 +65,7 @@ on *Preferences»Monitor settings*; in the Mode dropdown menu choose
 then move it up to the list so it will be the default.
 
 
-### Container
+## Container
 
 Runs on: Linux only.
 Requirements: systemd-nspawn, available in `systemd-container` package.
@@ -113,58 +113,25 @@ favorite GUI text editor.
 In case the id is different, read
 [this tutorial on changing UID and GID](https://muffinresearch.co.uk/linux-changing-uids-and-gids-for-user/).
 
-#### Running graphical applications from the container
+### Running graphical applications from the container
 
 You might need to run one or more graphical applications from the container,
-for example gitk or lily-git.  This is not allowed, unless you specify the
-display you want to use.  Check it out in the host with this command:
+for example gitk or lily-git.  This should work out of the box, if two
+requirements are met:
 
-    echo $DISPLAY
+1. The id of the guest user must the same as the id of the host user. Usually
+   it is, as you should have 1000, the id assigned to the first normal user.
+2. Another requirement is that the DISPLAY variable must be set to the same
+   value of the DISPLAY value in the host. We assumed that the value is `:0`.
+   If it's not, run `echo $DISPLAY` in the host and change accordingly the
+   DISPLAY variable in `~/.bashrc` in the guest.
 
-If the output is `:0`, then test it in the container with:
-
-    DISPLAY=:0 gitk
-
-If it works, add the alias so you can type just `gitk`:
-
-    echo 'alias gitk="DISPLAY=:0 gitk"' >> /home/dev/.bashrc
-
-Do the same for any other application you may need.
-
-The container does not include a browser, which is needed to log in to Rietveld
+The containers does not include a browser, which is needed to log in to Rietveld
 while uploading the patch via `git-cl`.  Unfortunately I could not find any text
 browser which worked with `git-cl`.  As installing a graphical browser would
 add several dependencies and I want to keep the container as small as possible,
 the best solution is launching `git-cl` from the host.  Otherwise you may
-install a browser in the container and add an alias similar to the above, e.g.:
+install a browser in the container, e.g.:
 
-    sudo dnf install firefox
-    echo 'alias firefox="DISPLAY=:0 firefox"' >> /home/dev/.bashrc
-
-
-## Guile 2
-
-The images contain only `guile-1.8`, the version needed for the regular
-contributor.  Who wants to work on migration to guile-2 should install
-this package:
-
-    sudo dnf install guile-devel
-
-
-## How to contribute to this repository
-
-[mkosi](https://github.com/systemd/mkosi/) required version is 3 or later.
-
-If your distro has an older version, you should install it from source.
-Dependencies are listed on mkosi README.
-Then download the repository and run the installation:
-
-    git clone git@github.com:systemd/mkosi.git
-    cd mkosi
-    sudo python3 setup.py install
-
-Usage is printed with this command:
-
-    mkosi --help
-
-The commands used to build the images are in the Makefile.
+    sudo dnf install firefox      # Fedora
+    sudo aptitude install firefox # Debian
