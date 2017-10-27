@@ -41,7 +41,7 @@ make
 make install
 
 # Build extractpdfmark
-dnf install automake gettext-devel poppler-devel
+dnf install -y automake gettext-devel poppler-devel
 git clone https://github.com/trueroad/extractpdfmark.git
 cd extractpdfmark
 ./autogen.sh
