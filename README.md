@@ -59,7 +59,7 @@ You'll log in as `dev` user (the password is `lilypond`).
 Desktop preferences suggestions:
 
 - Disable the screensaver: click on the menu icon on the bottom left, then
-on *Preferences»Monitor settings*; in the Mode dropdown menu choose
+on *Preferences»Screensaver*; in the Mode dropdown menu choose
 *Disable Screen Saver*.
 
 - Change keybord layout from default US (american) to your national layout in
