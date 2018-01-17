@@ -19,10 +19,10 @@ Download the latest [release](https://github.com/fedelibre/LilyDevOS/releases).
 The image built for being emulated on VM software has a `-vm` suffix.
 
 You must first decompress the zip archive.  Then you can verify the integrity
-of the data comparing the hash in the SHA256SUMS file with the output of
-this command (in Linux):
+of the data running this command in the directory where you've extracted the
+files:
 
-    sha256sum lilydev-vm-VERSION.raw
+    sha256sum -c SHA256SUMS
 
 In Linux you can test it quickly by using something like this (tested on
 Fedora.. the location of `OVMF_CODE.fd` might be different in other distros):
