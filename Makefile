@@ -1,4 +1,4 @@
-RELEASE = 0.2
+RELEASE = 0.3
 
 DEBIAN_SOURCES = debian/mkosi.debian debian/mkosi.postinst $(wildcard debian/mkosi.extra/*)
 FEDORA_SOURCES = fedora/mkosi.fedora fedora/mkosi.postinst $(wildcard fedora/mkosi.extra/*)
