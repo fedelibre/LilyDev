@@ -48,29 +48,3 @@ cd extractpdfmark
 ./configure
 make
 make install
-
-# Download URW35 OpenType files.
-# These lines can be removed if urw-base35-fonts package will include otf files.
-URW35FONTS=\
-"C059-BdIta.otf
-C059-Bold.otf
-C059-Italic.otf
-C059-Roman.otf
-NimbusMonoPS-Bold.otf
-NimbusMonoPS-BoldItalic.otf
-NimbusMonoPS-Italic.otf
-NimbusMonoPS-Regular.otf
-NimbusSans-Bold.otf
-NimbusSans-BoldOblique.otf
-NimbusSans-Oblique.otf
-NimbusSans-Regular.otf"
-
-# Download each font file
-for font in $URW35FONTS
-do
-  # The URL GET parameter f=$font will be replaced with the font file name
-  WGETURL="http://git.ghostscript.com/?p=urw-core35-fonts.git;a=blob;hb=79bcdfb34fbce12b592cce389fa7a19da6b5b018;f=$font;"
-  # wget options: less verbose, create directory, don't make host directory,
-  # use file name from HTTP header, set download location
-  wget -nv -x -nH --content-disposition -P /home/dev/.local/share/fonts "$WGETURL"
-done

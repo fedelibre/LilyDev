@@ -44,5 +44,4 @@ Packages=
     texlive-collection-langcyrillic
     texlive-metapost
     texlive-tex-gyre
-    # Commented, as it does not ship OpenType files.
-    #urw-base35-fonts
+    urw-base35-fonts
