@@ -73,3 +73,8 @@ do
   # use file name from HTTP header, set download location
   wget -nv -x -nH --content-disposition -P ~/.local/share/fonts "$WGETURL"
 done
+
+# Enable i386 multiarch support (for GUB)
+dpkg --add-architecture i386
+apt update
+apt install -y libc6:i386
