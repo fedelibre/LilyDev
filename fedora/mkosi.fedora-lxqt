@@ -1,6 +1,6 @@
 [Distribution]
 Distribution=fedora
-Release=27
+Release=29
 
 [Output]
 Format=raw_btrfs
@@ -40,6 +40,7 @@ Packages=
     # See Buildrequires here: http://pkgs.fedoraproject.org/cgit/rpms/lilypond.git/tree/lilypond.spec
     t1utils
     bison
+    extractpdfmark
     flex
     ImageMagick
     gettext

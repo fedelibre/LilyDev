@@ -39,12 +39,3 @@ cd texi2html-1.82
 ./configure
 make
 make install
-
-# Build extractpdfmark
-dnf install -y automake gettext-devel poppler-devel
-git clone https://github.com/trueroad/extractpdfmark.git
-cd extractpdfmark
-./autogen.sh
-./configure
-make
-make install

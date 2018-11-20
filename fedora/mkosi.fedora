@@ -1,6 +1,6 @@
 [Distribution]
 Distribution=fedora
-Release=27
+Release=29
 
 [Output]
 Format=directory
@@ -26,6 +26,7 @@ Packages=
     bison
     compat-guile18-devel
     dblatex
+    extractpdfmark
     flex
     fontpackages-devel
     gettext
