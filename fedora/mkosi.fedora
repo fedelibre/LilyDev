@@ -22,7 +22,7 @@ Packages=
     sudo
     wget
     # LilyPond dependencies
-    # See Buildrequires here: http://pkgs.fedoraproject.org/cgit/rpms/lilypond.git/tree/lilypond.spec
+    # See Buildrequires here: https://src.fedoraproject.org/rpms/lilypond/blob/master/f/lilypond.spec
     bison
     compat-guile18-devel
     dblatex
@@ -33,6 +33,7 @@ Packages=
     ghostscript
     ImageMagick
     mftrace
+    netpbm-progs
     pango-devel
     perl-Math-Complex
     perl-Pod-Parser

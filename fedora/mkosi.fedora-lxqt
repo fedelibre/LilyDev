@@ -37,26 +37,27 @@ Packages=
     sudo
     wget
     # LilyPond dependencies
-    # See Buildrequires here: http://pkgs.fedoraproject.org/cgit/rpms/lilypond.git/tree/lilypond.spec
-    t1utils
+    # See Buildrequires here: https://src.fedoraproject.org/rpms/lilypond/blob/master/f/lilypond.spec
+    ImageMagick
     bison
+    compat-guile18-devel
+    dblatex
     extractpdfmark
     flex
-    ImageMagick
-    gettext
-    python-devel
-    mftrace
-    texinfo
-    compat-guile18-devel
-    ghostscript
-    pango-devel
     fontpackages-devel
-    dblatex
-    texinfo-tex
-    #texi2html # Fedora package is too recent, we need version 1.82
+    gettext
+    ghostscript
+    mftrace
+    netpbm-progs
+    pango-devel
     perl-Math-Complex
     perl-Pod-Parser
+    python-devel
     rsync
+    t1utils
+    #texi2html # Fedora package is too recent, we need version 1.82
+    texinfo
+    texinfo-tex
     texlive-collection-langcyrillic
     texlive-metapost
     texlive-tex-gyre
