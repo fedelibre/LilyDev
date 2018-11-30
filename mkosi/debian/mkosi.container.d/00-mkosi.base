@@ -2,9 +2,6 @@
 Distribution=debian
 Release=stretch
 
-[Output]
-Format=directory
-
 [Packages]
 # We need a network connection when running mkosi.postinst
 WithNetwork=yes

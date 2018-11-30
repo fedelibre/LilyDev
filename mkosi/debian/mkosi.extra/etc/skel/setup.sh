@@ -36,4 +36,4 @@ echo "Downloading lilypond-git repository..."
 git clone git://git.sv.gnu.org/lilypond.git lilypond-git
 
 echo "Configuration completed successfully!"
-read -p "Press enter to close the wizard."
+read -p "Press Enter to close the wizard."

@@ -48,8 +48,9 @@ make install
 ldconfig
 
 # LilyPond docs need Greek and Cyrillic fonts from Ghostscript URW35.
-# These lines can be removed once the debian package fonts-urw-base35
-# reaches the stable repository (it's currently in testing).
+# However the Debian package fonts-urw-base35 (currently in testing/buster)
+# does not include OpenType font files. So we have to download these files
+# from ghostscript repository.
 URW35FONTS=\
 "C059-BdIta.otf
 C059-Bold.otf
