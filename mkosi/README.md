@@ -13,10 +13,35 @@ files:
 
     sha256sum -c SHA256SUMS
 
-In Linux you can test it quickly by using something like this (tested on
-Fedora.. the location of `OVMF_CODE.fd` might be different in other distros):
+The image is a *raw* disk image format, which can be converted to the specific
+format used by the software you want to use.
 
-    qemu-kvm -m 512 -smp 2 -bios /usr/share/edk2/ovmf/OVMF_CODE.fd -drive format=raw,file=lilydev-vm-VERSION.raw
+If you are running Windows or Mac in the host, you'll want to use VirtualBox, which requires VDI images.  You can generate it with this command:
+
+    VBoxManage convertfromraw lilydev-debian-vm-VERSION.raw lilydev-debian-vm-VERSION.vdi
+
+I won't enter the details of a VirtualBox installation, since it's easy and
+already covered in the LilyPond Contributor Manual.
+
+If your host is running Linux, you can use QEMU, which works well with either
+the raw image or its own format (qcow2).  You can generate it with:
+
+    qemu-img convert -f raw -O qcow2 lilydev-debian-vm-VERSION.raw lilydev-debian-vm-VERSION.qcow2
+
+Raw images give optimal performance, but only basic features are available
+(for example, no snapshots). qcow2 is the QEMU image format and has a number of features including snapshots.  In the rest of this section we'll assume you
+converted it to qcow2.
+
+Move the image to the usual location for libvirt images:
+
+    mv lilydev-debian-vm-VERSION.qcow2 ~/.local/share/libvirt/images/
+
+Now you can *register* the virtual machine in libvirt or, in libvirt terms,
+*define a domain*:
+
+    virt-install --name LilyDev-debian-vm-VERSION --memory 1024 --os-type=linux --os-variant=debian9 --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd --network=default --disk ~/.local/share/libvirt/images/lilydev-debian-vm-VERSION.qcow2 --noautoconsole --import
+
+(available OS variants are listed by the command `osinfo-query os`)
 
 512M of RAM *should* be enough, as the image contains also a swap partition
 of 2G.  If you can assign 1024M, even better.
@@ -24,36 +49,21 @@ In case you see some weird error while compiling lilypond, your guest might be
 running out of memory (check the RAM available with the command `free -m`)
 and you should try assigning more RAM to the virtual machine.
 
-Once you are sure about the suitable settings, you'd better *register* the
-virtual machine in libvirt or, in libvirt terms, *define a domain*.  Enter
-the directory where you saved the .raw file and launch this command:
-
-    virt-install --name lilydev-vm-VERSION --memory 1024 --os-type=linux \
-    --os-variant=fedora27 --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd \
-    --network=default --disk /FULL/PATH/TO/lilydev-vm-VERSION.raw \
-    --noautoconsole --import
-
-(available OS variants are listed by the command `osinfo-query os`)
-
 Now the virtual machine will be available on all libvirt clients, such as
 [virt-manager](https://virt-manager.org/) or
 [GNOME Boxes](https://wiki.gnome.org/Apps/Boxes).
 If you still want to launch it from command-line, use these commands:
 
-    virsh start lilydev-vm-VERSION
-    virt-viewer --connect qemu:///session lilydev-vm-VERSION
+    virsh start LilyDev-debian-vm-VERSION
+    virt-viewer --connect qemu:///session LilyDev-debian-vm-VERSION
 
 You'll log in as `dev` user (the password is `lilypond`).
 
 Desktop preferences suggestions:
 
-- Disable the screensaver: click on the menu icon on the bottom left, then
-on *Preferences»Screensaver*; in the Mode dropdown menu choose
-*Disable Screen Saver*.
-
 - Change keybord layout from default US (american) to your national layout in
-*Preferences»Keyboard and Mouse»Keyboard Layout*; add your layout and
-then move it up to the list so it will be the default.
+*Applications»Settings»Keyboard»Layout*: add your layout and then move it up
+to the list so it will be the default.
 
 
 ## Container
@@ -127,5 +137,5 @@ add several dependencies and I want to keep the containers as small as possible,
 the best solution is launching `git-cl` from the host.  Otherwise you may
 install a browser in the container, e.g.:
 
-    sudo dnf install firefox      # Fedora
-    sudo aptitude install firefox # Debian
+    sudo dnf install firefox           # Fedora
+    sudo aptitude install firefox-esr  # Debian
