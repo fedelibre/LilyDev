@@ -1,43 +1,43 @@
 #!/bin/bash
-printf "This wizard will help you to setup your Git configuration.\n\n"
+# This file is different from that in the LilyDev Debian image, since in Fedora
+# we don't have to dowload the .otf files of URW fonts.
 
-if [ -f ~/.gitconfig ]; then
-  printf "A file configuration already exists. If you proceed, it will be overwritten.\nPress Ctrl+C to cancel/Press enter to proceed: "
-  read _
+###  GIT CONFIGURATION  ###
+if [ ! -f ~/.gitconfig ];
+then
+  echo "This wizard will help you to setup your Git configuration."
+  echo -n "Please enter your name and surname: "
+  read NAME
+  git config --global user.name "$NAME"
+  echo -n "Please enter your email address: "
+  read EMAIL
+  git config --global user.email "$EMAIL"
+  echo "Your commit messages will be signed as '$NAME <$EMAIL>'."
+else
+  echo "Git is already configured. Skipping..."
+  echo "Remove ~/.gitconfig to force a new configuration."
 fi
 
-echo -n "Please enter your name and surname: "
-read NAME
-git config --global user.name "$NAME"
-echo -n "Please enter your email address: "
-read EMAIL
-git config --global user.email "$EMAIL"
-echo "Your commit messages will be signed as '$NAME <$EMAIL>'."
-#echo "Default editor to write commit messages is currently nano. You can now confirm it or choose another text editor [emacs|geany|nano]: "
-#read GITEDITOR
-#git config --global core.editor $GITEDITOR
 
-git config --global color.ui auto
-echo
-
-# In case this script is run again after first configuration, skip
-# this part if these directories exist.
-if [ -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra ]; then
-  printf "You've already downloaded the repositories. Press Ctrl+C close the wizard: "
-read _
+###  DOWNLOAD REPOSITORIES  ###
+if [ ! -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra ];
+then
+  echo "Now we'll download the repositories needed to contribute to LilyPond development. Proceed only if you have a working Internet connection."
+  read -p "Press Enter to continue. "
+  cd $HOME
+  echo "Cloning in your home directory: `pwd`. It will take a few minutes."
+  echo "Downloading git-cl repository..."
+  git clone git://github.com/gperciva/git-cl.git
+  echo "Downloading lilypond-extra repository..."
+  git clone git://github.com/gperciva/lilypond-extra/
+  echo "Downloading lilypond-git repository..."
+  git clone git://git.sv.gnu.org/lilypond.git lilypond-git
+else
+  echo "Repositories already downloaded. Skipping..."
+  echo
 fi
 
-echo "Now we'll download the repositories needed to contribute to LilyPond development. Proceed only if you have a working Internet connection."
-read -p "Press Enter to continue. "
-cd $HOME
-echo "Cloning in your home directory: `pwd`. It will take a few minutes."
-echo "Downloading git-cl repository..."
-git clone git://github.com/gperciva/git-cl.git
-echo "Downloading lilypond-extra repository..."
-git clone git://github.com/gperciva/lilypond-extra/
-echo "Downloading lilypond-git repository..."
-git clone git://git.sv.gnu.org/lilypond.git lilypond-git
 
+###  EXIT  ###
 echo "Configuration completed successfully!"
-read -p "Press enter to close the wizard."
-
+exit 0
