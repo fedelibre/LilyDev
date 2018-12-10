@@ -7,11 +7,11 @@ services:
 
     volumes:
       - type: bind
-        source: ${LILYPOND_SRC_DIR}
+        source: ${LILY_SRC_DIR}
         target: /root/lilypond-src
         read_only: true
       - type: bind
-        source: ${LILYPOND_BUILD_DIR}
+        source: ${LILY_BUILD_DIR}
         target: /root/lilypond-build
         consistency: delegated
 

@@ -1,22 +1,30 @@
+# Docker
+
+LilyDev Docker image is the recommended choice for Windows and Mac users
+who prefer a lightweight container over a full virtual machine.
+Working with a Docker container is different from  what you are used to
+in virtual machines: the container is used only to run the build, while
+you can work on the source code in your host environment.
+
 ## INITIAL SETUP
 
-1. Install Docker.  There is more than one way to do this.  The author
-   of this document used Homebrew:
+1. [Install Docker](https://docs.docker.com/install/).  There is more than
+   one way to do this.  On Mac you can use Homebrew:
 
        brew cask install docker
 
    You might wish to explore and tweak Docker's preferences before
    using it.
 
-2. The provided docker-compose.yaml sets up a container with read-only
+2. The provided `docker-compose.yaml` sets up a container with read-only
    access to the source directory and full access to a separate
    directory for build artifacts.  To tell Docker the host directories
-   to use, create a file named ".env" in this directory, holding the
+   to use, create a file named `.env` in this directory, holding the
    following variable definitions referring to host directories by
    absolute path.
 
-       LILYPOND_BUILD_DIR=...
-       LILYPOND_SRC_DIR=...
+       LILY_BUILD_DIR=...
+       LILY_SRC_DIR=...
 
    Before you start using the build directory, consider whether you
    want to configure operating system options such as storage quotas,
@@ -48,7 +56,7 @@
 
    For further instruction, refer to the LilyPond Contributor's Guide.
 
-5. When you are done working, clean up:
+5. When you are done working, type Ctrl-D and clean up:
 
        docker-compose down
 

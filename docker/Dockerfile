@@ -13,7 +13,9 @@ COPY xenial.list /etc/apt/sources.list.d/xenial.list
 ## required packages, e.g. xterm.
 ##
 ## YUCK: Testing, e.g. make test-baseline, uses git.
-## 
+##
+COPY ./urw35fonts.sh /root
+
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
     autoconf \
@@ -29,7 +31,6 @@ RUN apt-get update \
     fonts-ipafont-gothic \
     fonts-ipafont-mincho \
     fonts-texgyre \
-    fonts-urw-base35 \
     g++-8 \
     gettext \
     ghostscript \
@@ -63,6 +64,8 @@ RUN apt-get update \
     texlive-latex-recommended \
     texlive-metapost \
     texlive-xetex \
+    wget \
     zip \
 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
-&& rm -rf /var/lib/apt/lists/*
+&& rm -rf /var/lib/apt/lists/* \
+&& bash /root/urw35fonts.sh
