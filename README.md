@@ -19,8 +19,8 @@ available also to Windows and Mac users (but it works on Linux too!).
 
 Containers are recommended as they are lightweight and easy to use.
 Choose the image which best suits you, download the
-[latest release](releases/latest/) and follow the instuctions in
-each tool README:
+[latest release](https://github.com/fedelibre/LilyDevOS/releases/latest)
+and follow the instuctions in each tool README:
 
 * [mkosi](mkosi/): recommended for Linux hosts.
 * [docker](docker/): recommended for Windows or Mac hosts.
