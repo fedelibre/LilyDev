@@ -1,4 +1,4 @@
-RELEASE = 0.3
+RELEASE = 0.4
 
 DEBIAN_CONTAINER_SRC = $(wildcard debian/mkosi.container.d/*) $(wildcard debian/mkosi.extra) debian/mkosi.postinst
 DEBIAN_VM_SRC = $(wildcard debian/mkosi.vm.d/*) $(wildcard debian/mkosi.extra) debian/mkosi.postinst
