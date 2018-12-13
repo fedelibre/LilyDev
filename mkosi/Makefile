@@ -26,10 +26,10 @@ lilydev-debian-$(RELEASE): $(DEBIAN_CONTAINER_SRC)
 	@echo 'Build Debian container.'
 	cd debian && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/lilydev-debian-$(RELEASE)
 
-debian-vm: lilydev-debian-vm-$(RELEASE).raw
-lilydev-debian-vm-$(RELEASE).raw: $(DEBIAN_VM_SRC)
+debian-vm: lilydev-debian-vm-$(RELEASE).img
+lilydev-debian-vm-$(RELEASE).img: $(DEBIAN_VM_SRC)
 	@echo 'Build Debian virtual machine.'
-	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/lilydev-debian-vm-$(RELEASE).raw
+	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/lilydev-debian-vm-$(RELEASE).img
 
 
 # Other images, just in case...
@@ -38,10 +38,10 @@ lilydev-fedora-$(RELEASE): $(FEDORA_CONTAINER_SRC)
 	@echo 'Build Fedora container.'
 	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/lilydev-fedora-$(RELEASE)
 
-fedora-vm: lilydev-vm-fedora-$(RELEASE).raw
-lilydev-vm-fedora-$(RELEASE).raw: $(FEDORA_VM_SRC)
+fedora-vm: lilydev-vm-fedora-$(RELEASE).img
+lilydev-vm-fedora-$(RELEASE).img: $(FEDORA_VM_SRC)
 	@echo 'Build Fedora virtual machine.'
-	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/lilydev-fedora-vm-$(RELEASE).raw
+	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/lilydev-fedora-vm-$(RELEASE).img
 
 
 release: lilydev-debian-$(RELEASE).tar.xz lilydev-debian-vm-$(RELEASE).zip
@@ -51,7 +51,7 @@ lilydev-debian-$(RELEASE).tar.xz:
 
 lilydev-debian-vm-$(RELEASE).zip:
 	@echo 'Create Debian virtual machine archive for Github.'
-	sudo zip -v lilydev-debian-vm-$(RELEASE).zip SHA256SUMS lilydev-debian-vm-$(RELEASE).raw
+	sudo zip -v lilydev-debian-vm-$(RELEASE).zip SHA256SUMS lilydev-debian-vm-$(RELEASE).img
 
 clean:
 	sudo rm -rf lilydev* SHA256SUMS

@@ -18,7 +18,7 @@ format used by the software you want to use.
 
 If you are running Windows or Mac in the host, you'll want to use VirtualBox, which requires VDI images.  You can generate it with this command:
 
-    VBoxManage convertfromraw lilydev-debian-vm-VERSION.raw lilydev-debian-vm-VERSION.vdi
+    VBoxManage convertfromraw lilydev-debian-vm-VERSION.img lilydev-debian-vm-VERSION.vdi
 
 I won't enter the details of a VirtualBox installation, since it's easy and
 already covered in the LilyPond Contributor Manual.
@@ -26,7 +26,7 @@ already covered in the LilyPond Contributor Manual.
 If your host is running Linux, you can use QEMU, which works well with either
 the raw image or its own format (qcow2).  You can generate it with:
 
-    qemu-img convert -f raw -O qcow2 lilydev-debian-vm-VERSION.raw lilydev-debian-vm-VERSION.qcow2
+    qemu-img convert -f raw -O qcow2 lilydev-debian-vm-VERSION.img lilydev-debian-vm-VERSION.qcow2
 
 Raw images give optimal performance, but only basic features are available
 (for example, no snapshots). qcow2 is the QEMU image format and has a number of features including snapshots.  In the rest of this section we'll assume you
