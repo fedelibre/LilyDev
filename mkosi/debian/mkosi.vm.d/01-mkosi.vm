@@ -15,7 +15,9 @@ Packages =
     firefox-esr
     geany
     lightdm
+    linux-headers-amd64
     network-manager
+    policykit-1-gnome
     spice-vdagent
     synaptic
     tango-icon-theme

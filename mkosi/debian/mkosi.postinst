@@ -52,3 +52,11 @@ ldconfig
 dpkg --add-architecture i386
 apt update
 apt install -y libc6:i386
+
+# Add backports repositories to install packages needed by VirtualBox (but it
+# might be useful also to install more recent software). It should be
+# safe, as packages from backports have low priority (100) and cannot be
+# installed accidentally.
+echo "deb http://ftp.debian.org/debian stretch-backports main contrib" >> /etc/apt/sources.list
+apt update
+apt -t stretch-backports install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
