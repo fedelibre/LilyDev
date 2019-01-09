@@ -1,9 +1,8 @@
-# LilyDevOS
+# LilyDev
 
-This repository, named LilyDevOS, is the replacement of
-[LilyDev](https://github.com/fedelibre/LilyDev).
-Even if the final product will still be called LilyDev, this
-is the place where the images will be created from now on.
+LilyDev is a custom GNU/Linux operating system which includes
+all the necessary software and tools to compile
+[LilyPond](http://lilypond.org/).
 
 ## mkosi or Docker images?
 
