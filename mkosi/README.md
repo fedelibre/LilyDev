@@ -18,13 +18,14 @@ format used by the software you want to use.
 
 ### VirtualBox
 
-If you are running Windows or Mac in the host, you'll want to use VirtualBox, which requires VDI images.  You can generate it with this command:
+If you are running Windows or Mac in the host, you'll want to use VirtualBox,
+which requires VDI images.  You can generate it with this command:
 
     VBoxManage convertfromraw lilydev-debian-vm-VERSION.img lilydev-debian-vm-VERSION.vdi
 
 Please follow all the steps described in the LilyPond Contributor guide to
-[configure the VirtualBox machine](http://lilypond.org/doc/v2.19/Documentation/contributor/lilydev#configuring-lilydev-in-virtualbox). In particular, you
-need to enable EFI or the image won't boot.
+[install and configure the VirtualBox machine](http://lilypond.org/doc/v2.19/Documentation/contributor/lilydev#installing-lilydev-in-virtualbox).
+In particular, remember that you need to enable EFI or the image won't boot.
 
 ### QEMU/libvirt
 
