@@ -38,12 +38,13 @@ lilydev-fedora-$(RELEASE): $(FEDORA_CONTAINER_SRC)
 	@echo 'Build Fedora container.'
 	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/lilydev-fedora-$(RELEASE)
 
-fedora-vm: lilydev-vm-fedora-$(RELEASE).img
-lilydev-vm-fedora-$(RELEASE).img: $(FEDORA_VM_SRC)
+fedora-vm: lilydev-fedora-vm-$(RELEASE).img
+lilydev-fedora-vm-$(RELEASE).img: $(FEDORA_VM_SRC)
 	@echo 'Build Fedora virtual machine.'
 	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/lilydev-fedora-vm-$(RELEASE).img
 
 
+# Archive files to be uploaded to Github
 release: lilydev-debian-$(RELEASE).tar.xz lilydev-debian-vm-$(RELEASE).zip
 lilydev-debian-$(RELEASE).tar.xz:
 	@echo 'Create Debian container archive for Github.'
