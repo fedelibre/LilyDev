@@ -35,6 +35,7 @@ Packages=
     perl-Math-Complex
     perl-Pod-Parser
     python-devel
+    python-unversioned-command
     rsync
     t1utils
     #texi2html # Fedora package is too recent, we need version 1.82
