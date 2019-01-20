@@ -15,7 +15,13 @@ you can work on the source code in your host environment.
 
    You might wish to explore and tweak Docker's preferences before
    using it.
-
+   
+   On first run, Docker may ask for account creation or log in.
+   LilyDev setup needs downloads from public repositories;
+   having an account logged in could interfere. So log out:
+   
+       docker logout
+       
 2. The provided `docker-compose.yaml` sets up a container with read-only
    access to the source directory and full access to a separate
    directory for build artifacts.  To tell Docker the host directories
