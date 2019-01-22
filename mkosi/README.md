@@ -21,7 +21,7 @@ format used by the software you want to use.
 If you are running Windows or Mac in the host, you'll want to use VirtualBox,
 which requires VDI images.  You can generate it with this command:
 
-    VBoxManage convertfromraw lilydev-debian-vm-VERSION.img lilydev-debian-vm-VERSION.vdi
+    VBoxManage convertfromraw LilyDev-debian-vm-VERSION.img LilyDev-debian-vm-VERSION.vdi
 
 Please follow all the steps described in the LilyPond Contributor guide to
 [install and configure the VirtualBox machine](http://lilypond.org/doc/v2.19/Documentation/contributor/lilydev#installing-lilydev-in-virtualbox).
@@ -32,7 +32,7 @@ In particular, remember that you need to enable EFI or the image won't boot.
 If your host is running Linux, you can use QEMU.  It works well with either
 the raw image or its own format (qcow2), which you can generate it with:
 
-    qemu-img convert -f raw -O qcow2 lilydev-debian-vm-VERSION.img lilydev-debian-vm-VERSION.qcow2
+    qemu-img convert -f raw -O qcow2 LilyDev-debian-vm-VERSION.img LilyDev-debian-vm-VERSION.qcow2
 
 Raw images give optimal performance, but only basic features are available
 (for example, no snapshots). qcow2 is the QEMU image format and has a number of
@@ -41,12 +41,12 @@ converted it to qcow2.
 
 Move the image to the usual location for libvirt images:
 
-    mv lilydev-debian-vm-VERSION.qcow2 ~/.local/share/libvirt/images/
+    mv LilyDev-debian-vm-VERSION.qcow2 ~/.local/share/libvirt/images/
 
 Now you can *register* the virtual machine in libvirt or, in libvirt terms,
 *define a domain*:
 
-    virt-install --name LilyDev-debian-vm-VERSION --memory 1024 --os-type=linux --os-variant=debian9 --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd --network=default --disk ~/.local/share/libvirt/images/lilydev-debian-vm-VERSION.qcow2 --noautoconsole --import
+    virt-install --name LilyDev-debian-vm-VERSION --memory 1024 --os-type=linux --os-variant=debian9 --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd --network=default --disk ~/.local/share/libvirt/images/LilyDev-debian-vm-VERSION.qcow2 --noautoconsole --import
 
 (available OS variants are listed by the command `osinfo-query os`)
 
@@ -90,11 +90,11 @@ and Fedora, but others may be added.
 You need root privileges to extract the content, so you'd better do it on
 the command line:
 
-    sudo tar xf lilydev-DISTRO-VERSION.tar.xz
+    sudo tar xf LilyDev-DISTRO-VERSION.tar.xz
 
 Start the container:
 
-    sudo systemd-nspawn -bD lilydev-DISTRO-VERSION
+    sudo systemd-nspawn -bD LilyDev-DISTRO-VERSION
 
 At the login type `root` and press Enter (no password needed).  Then change to
 the regular user `dev`, go to the home directory and run the setup.sh script:

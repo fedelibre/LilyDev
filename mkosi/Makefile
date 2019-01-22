@@ -1,3 +1,4 @@
+NAME = LilyDev
 RELEASE = 0.4
 
 DEBIAN_CONTAINER_SRC = $(wildcard debian/mkosi.container.d/*) $(wildcard debian/mkosi.extra) debian/mkosi.postinst
@@ -21,38 +22,38 @@ help:
 # Images to be released and uploaded on Github.
 images: debian debian-vm
 
-debian: lilydev-debian-$(RELEASE)
-lilydev-debian-$(RELEASE): $(DEBIAN_CONTAINER_SRC)
+debian: $(NAME)-debian-$(RELEASE)
+$(NAME)-debian-$(RELEASE): $(DEBIAN_CONTAINER_SRC)
 	@echo 'Build Debian container.'
-	cd debian && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/lilydev-debian-$(RELEASE)
+	cd debian && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-debian-$(RELEASE)
 
-debian-vm: lilydev-debian-vm-$(RELEASE).img
-lilydev-debian-vm-$(RELEASE).img: $(DEBIAN_VM_SRC)
+debian-vm: $(NAME)-debian-vm-$(RELEASE).img
+$(NAME)-debian-vm-$(RELEASE).img: $(DEBIAN_VM_SRC)
 	@echo 'Build Debian virtual machine.'
-	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/lilydev-debian-vm-$(RELEASE).img
+	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/$(NAME)-debian-vm-$(RELEASE).img
 
 
 # Other images, just in case...
-fedora: lilydev-fedora-$(RELEASE)
-lilydev-fedora-$(RELEASE): $(FEDORA_CONTAINER_SRC)
+fedora: $(NAME)-fedora-$(RELEASE)
+$(NAME)-fedora-$(RELEASE): $(FEDORA_CONTAINER_SRC)
 	@echo 'Build Fedora container.'
-	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/lilydev-fedora-$(RELEASE)
+	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-fedora-$(RELEASE)
 
-fedora-vm: lilydev-fedora-vm-$(RELEASE).img
-lilydev-fedora-vm-$(RELEASE).img: $(FEDORA_VM_SRC)
+fedora-vm: $(NAME)-fedora-vm-$(RELEASE).img
+$(NAME)-fedora-vm-$(RELEASE).img: $(FEDORA_VM_SRC)
 	@echo 'Build Fedora virtual machine.'
-	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/lilydev-fedora-vm-$(RELEASE).img
+	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/$(NAME)-fedora-vm-$(RELEASE).img
 
 
 # Archive files to be uploaded to Github
-release: lilydev-debian-$(RELEASE).tar.xz lilydev-debian-vm-$(RELEASE).zip
-lilydev-debian-$(RELEASE).tar.xz:
+release: $(NAME)-debian-$(RELEASE).tar.xz $(NAME)-debian-vm-$(RELEASE).zip
+$(NAME)-debian-$(RELEASE).tar.xz:
 	@echo 'Create Debian container archive for Github.'
-	sudo tar -vcJf lilydev-debian-$(RELEASE).tar.xz lilydev-debian-$(RELEASE)
+	sudo tar -vcJf $(NAME)-debian-$(RELEASE).tar.xz $(NAME)-debian-$(RELEASE)
 
-lilydev-debian-vm-$(RELEASE).zip:
+$(NAME)-debian-vm-$(RELEASE).zip:
 	@echo 'Create Debian virtual machine archive for Github.'
-	sudo zip -v lilydev-debian-vm-$(RELEASE).zip SHA256SUMS lilydev-debian-vm-$(RELEASE).img
+	sudo zip -v $(NAME)-debian-vm-$(RELEASE).zip SHA256SUMS $(NAME)-debian-vm-$(RELEASE).img
 
 clean:
-	sudo rm -rf lilydev* SHA256SUMS
+	sudo rm -rf $(NAME)* SHA256SUMS

@@ -1,5 +1,5 @@
 *.lck
 .mkosi*
-lilydev*
+LilyDev*
 mkosi.cache
 SHA256SUMS
