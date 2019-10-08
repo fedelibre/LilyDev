@@ -1,3 +1,8 @@
+# Emacs backup/lock/autosave files.
+.*~
+.\#*
+\#*\#
+
 *.lck
 .mkosi*
 LilyDev*
