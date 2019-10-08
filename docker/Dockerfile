@@ -1,7 +1,7 @@
 ###########################################################################
 # lilypond-base: minimal image for running lilypond and its scripts
 ###########################################################################
-FROM ubuntu:18.04 as lilypond-base
+FROM ubuntu:19.10 as lilypond-base
 
 # Allow taking Guile 1.8 (and prerequisites) from Ubuntu 16.04.
 COPY ./install/xenial.list /etc/apt/sources.list.d/xenial.list
@@ -76,7 +76,7 @@ RUN apt-get update \
     fonts-ipafont-gothic \
     fonts-ipafont-mincho \
     fonts-texgyre \
-    g++-8 \
+    g++ \
     gettext \
     git \
     groff \
@@ -110,7 +110,6 @@ RUN apt-get update \
     texlive-metapost \
     texlive-xetex \
     zip \
-&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
 && rm -rf /var/lib/apt/lists/*
 
 USER user
