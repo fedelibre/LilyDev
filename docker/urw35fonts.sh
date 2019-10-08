@@ -17,9 +17,26 @@ NimbusSans-BoldOblique.otf
 NimbusSans-Oblique.otf
 NimbusSans-Regular.otf"
 
+export DEBIAN_FRONTEND=noninteractive
+
+# install packages required to obtain the fonts
+install_packages () {
+  apt-get update
+  apt-get --no-install-recommends install -y wget
+}
+
+# clean up to avoid bloating the image with packages not necessary for
+# LilyPond development
+clean_packages () {
+  apt-get remove -y wget
+  apt-get autoremove
+  rm -rf /var/lib/apt/lists/*
+}
+
 # Download each font file
 if [ ! -d ~/.local/share/fonts ];
 then
+  install_packages
   for font in $URW35FONTS
   do
     # The URL GET parameter f=$font will be replaced with the font file name
@@ -28,6 +45,7 @@ then
     # use file name from HTTP header, set download location
     wget -nv -x -nH --content-disposition -P ~/.local/share/fonts "$WGETURL"
   done
+  clean_packages
 else
   echo "Fonts already downloaded. Skipping..."
   echo
