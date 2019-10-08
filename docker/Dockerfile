@@ -64,8 +64,7 @@ RUN apt-get update \
     texlive-latex-recommended \
     texlive-metapost \
     texlive-xetex \
-    wget \
     zip \
 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
-&& rm -rf /var/lib/apt/lists/* \
-&& bash /root/urw35fonts.sh
+&& bash /root/urw35fonts.sh && rm /root/urw35fonts.sh \
+&& rm -rf /var/lib/apt/lists/*
