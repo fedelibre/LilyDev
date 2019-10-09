@@ -23,6 +23,14 @@ RUN apt-get update \
     python-all \
 && rm -rf /var/lib/apt/lists/*
 
+# The default one-line prompt gets long.  Set a two-line prompt.
+#
+# \e]2;...\a    set the window title in xterm
+# \e[1;7m       bold, reverse
+# \e[0m         normal
+#
+RUN echo 'PS1="\\[\\e]2;\\h\\a\\]\\[\\e[1;7m\\] \\h:\\w \\[\\e[0m\\]\\n\\\\$ "' >> ~/.bashrc
+
 ###########################################################################
 # lilypond: for running LilyPond
 ###########################################################################
