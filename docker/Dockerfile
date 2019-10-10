@@ -36,10 +36,15 @@ RUN echo 'PS1="\\[\\e]2;\\h\\a\\]\\[\\e[1;7m\\] \\h:\\w \\[\\e[0m\\]\\n\\\\$ "' 
 ###########################################################################
 FROM lilypond-base as lilypond
 
+# Include LilyPond in the PATH.  We don't do this in the base image
+# because we don't want the development workflow to come to depend on
+# it accidentally.
+RUN echo 'PATH="/root/lilypond-build/out/bin:${PATH}"' >> ~/.bashrc
+
 ## LilyPond itself requires nothing more, but you may wish to install
 ## extra packages that your personal workflow requires.  Adding them
 ## here will add them to the lilypond image without adding them to the
-## lilypond-build image.  Example:
+## lilypond-dev image.  Example:
 
 # RUN apt-get update \
 # && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
@@ -47,9 +52,9 @@ FROM lilypond-base as lilypond
 # && rm -rf /var/lib/apt/lists/*
 
 ###########################################################################
-# lilypond-build: for LilyPond development
+# lilypond-dev: for LilyPond development
 ###########################################################################
-FROM lilypond-base as lilypond-build
+FROM lilypond-base as lilypond-dev
 
 COPY ./urw35fonts.sh /root
 

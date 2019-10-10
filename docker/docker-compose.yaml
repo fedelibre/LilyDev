@@ -1,10 +1,12 @@
 version: '3.7'
 services:
-  lilypond-build:
-    container_name: lilypond-build
-    hostname: lilypond-build
+  lilydev:
+    container_name: lilydev
+    hostname: lilydev
     image: lilypond-dev
-    build: .
+    build:
+        context: .
+        target: lilypond-dev
 
     volumes:
       - type: bind
@@ -21,3 +23,47 @@ services:
     tty: false
 
     working_dir: /root/lilypond-build
+
+  lilypond:
+    container_name: lilypond
+    hostname: lilypond
+    image: lilypond
+    build:
+        context: .
+        target: lilypond
+    
+    volumes:
+      - type: bind
+        source: ${HOST_EXTRA_FONTS_DIR:-/dev/null}
+        target: /usr/share/fonts/host/extra
+        read_only: true
+      - type: bind
+        source: ${HOST_SYSTEM_FONTS_DIR:-/dev/null}
+        target: /usr/share/fonts/host/system
+        read_only: true
+      - type: bind
+        source: ${LILY_BUILD_DIR}
+        target: /root/lilypond-build
+        read_only: true
+      - type: bind
+        source: ${LILY_SRC_DIR}
+        target: /root/lilypond-src
+        read_only: true
+      - type: bind
+        source: ${USER_BUILD_DIR}
+        target: /root/user-build
+        consistency: delegated
+      - type: bind
+        source: ${USER_FONTS_DIR:-/dev/null}
+        target: /root/.local/share/fonts
+        read_only: true
+      - type: bind
+        source: ${USER_SRC_DIR}
+        target: /root/user-src
+        read_only: true
+
+    entrypoint: tail -f /dev/null
+    stdin_open: false
+    tty: false
+
+    working_dir: /root/user-build
