@@ -21,16 +21,16 @@ export DEBIAN_FRONTEND=noninteractive
 
 # install packages required to obtain the fonts
 install_packages () {
-  apt-get update
-  apt-get --no-install-recommends install -y wget
+  sudo apt-get update
+  sudo apt-get --no-install-recommends install -y wget
 }
 
 # clean up to avoid bloating the image with packages not necessary for
 # LilyPond development
 clean_packages () {
-  apt-get remove -y wget
-  apt-get autoremove
-  rm -rf /var/lib/apt/lists/*
+  sudo apt-get remove -y wget
+  sudo apt-get autoremove
+  sudo rm -rf /var/lib/apt/lists/*
 }
 
 # Download each font file

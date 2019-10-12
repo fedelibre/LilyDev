@@ -11,18 +11,19 @@ services:
     volumes:
       - type: bind
         source: ${LILY_SRC_DIR}
-        target: /root/lilypond-src
+        target: /home/user/lilypond-src
         read_only: true
       - type: bind
         source: ${LILY_BUILD_DIR}
-        target: /root/lilypond-build
+        target: /home/user/lilypond-build
         consistency: delegated
 
     entrypoint: tail -f /dev/null
     stdin_open: false
     tty: false
 
-    working_dir: /root/lilypond-build
+    user: user
+    working_dir: /home/user/lilypond-build
 
   lilypond:
     container_name: lilypond
@@ -31,7 +32,7 @@ services:
     build:
         context: .
         target: lilypond
-    
+
     volumes:
       - type: bind
         source: ${HOST_EXTRA_FONTS_DIR:-/dev/null}
@@ -43,27 +44,28 @@ services:
         read_only: true
       - type: bind
         source: ${LILY_BUILD_DIR}
-        target: /root/lilypond-build
+        target: /home/user/lilypond-build
         read_only: true
       - type: bind
         source: ${LILY_SRC_DIR}
-        target: /root/lilypond-src
+        target: /home/user/lilypond-src
         read_only: true
       - type: bind
         source: ${USER_BUILD_DIR}
-        target: /root/user-build
+        target: /home/user/user-build
         consistency: delegated
       - type: bind
         source: ${USER_FONTS_DIR:-/dev/null}
-        target: /root/.local/share/fonts
+        target: /home/user/.local/share/fonts
         read_only: true
       - type: bind
         source: ${USER_SRC_DIR}
-        target: /root/user-src
+        target: /home/user/user-src
         read_only: true
 
     entrypoint: tail -f /dev/null
     stdin_open: false
     tty: false
 
-    working_dir: /root/user-build
+    user: user
+    working_dir: /home/user/user-build
