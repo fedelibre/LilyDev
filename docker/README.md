@@ -53,9 +53,9 @@ while you can work on the source code in your host environment.
 
        $ docker-compose up -d lilydev
 
-3. Enter a shell in the container:
+3. Log into the container:
 
-       $ docker exec -it lilydev bash
+       $ ./enter lilydev
 
 4. Build and test LilyPond.  The first step is to configure the build
    from the build directory:
@@ -122,3 +122,15 @@ USER_BUILD_DIR=/Volumes/LilyPond/user-build
 USER_FONTS_DIR=/Users/jsb/Library/Fonts
 USER_SRC_DIR=/Users/jsb/Music/LilyPond/trunk
 ```
+## Appendix B: Tips for macOS Hosts
+
+* Accessing host files from the container is relatively slow.  To
+  remove large trees quickly, delete them with Finder and then empty
+  the trash.
+
+* Sometimes it can be useful to create files or directories that the
+  user in the container can not modify, for example to force an error
+  when debugging build scripts.  This is impossible from within the
+  container for files mapped from the host.  To work around this, use
+  Finder to mark the file "Locked" or run `sudo chflags uimmutable
+  <file>` in Terminal.

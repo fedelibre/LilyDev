@@ -1,0 +1,14 @@
+
+if [ "$TERM_PROGRAM" = "Apple_Terminal" ] ; then
+  L_FROG=$'\xf0\x9f\x90\xb8 '
+fi
+
+# The default one-line prompt gets long.  Set a two-line prompt.
+#
+# \e]2;...\a    set the window title in xterm
+# \e[1;7m       bold, reverse
+# \e[0m         normal
+#
+PS1="\[\e]2;${L_FROG}\h\a\]\[\e[1;7m\] \h:\w \[\e[0m\]\n\\$ "
+
+unset L_FROG

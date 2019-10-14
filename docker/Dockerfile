@@ -4,13 +4,10 @@
 FROM ubuntu:18.04 as lilypond-base
 
 # Allow taking Guile 1.8 (and prerequisites) from Ubuntu 16.04.
-COPY xenial.list /etc/apt/sources.list.d/xenial.list
+COPY ./install/xenial.list /etc/apt/sources.list.d/xenial.list
 
-## DEBIAN_FRONTEND=noninteractive prevents tzdata (etc.?) from
-## prompting after these packages are added.
-##
-## TODO: Find out how to use the host's local time zone instead of UTC
-## in the container.
+## DEBIAN_FRONTEND=noninteractive prevents apt-get from prompting
+## after certain packages are added.
 ##
 ## --no-install-recommends avoids installing recommended but not
 ## required packages, e.g. xterm.
@@ -21,15 +18,18 @@ RUN apt-get update \
     guile-1.8 \
     libpangoft2-1.0-0 \
     python-all \
+    sudo \
 && rm -rf /var/lib/apt/lists/*
 
-# The default one-line prompt gets long.  Set a two-line prompt.
-#
-# \e]2;...\a    set the window title in xterm
-# \e[1;7m       bold, reverse
-# \e[0m         normal
-#
-RUN echo 'PS1="\\[\\e]2;\\h\\a\\]\\[\\e[1;7m\\] \\h:\\w \\[\\e[0m\\]\\n\\\\$ "' >> ~/.bashrc
+# Add a non-root user who can run sudo without a password.
+RUN useradd -m -s /bin/bash user \
+&& adduser user sudo \
+&& echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+&& sudo -u user touch ~user/.sudo_as_admin_successful
+
+USER user
+COPY ./install/base_bashrc_addendum /home/user/base_bashrc_addendum
+RUN cat ~/base_bashrc_addendum >> ~/.bashrc && rm ~/base_bashrc_addendum
 
 ###########################################################################
 # lilypond: for running LilyPond
@@ -39,27 +39,28 @@ FROM lilypond-base as lilypond
 # Include LilyPond in the PATH.  We don't do this in the base image
 # because we don't want the development workflow to come to depend on
 # it accidentally.
-RUN echo 'PATH="/root/lilypond-build/out/bin:${PATH}"' >> ~/.bashrc
+RUN echo 'PATH="$HOME/lilypond-build/out/bin:$PATH"' >> ~/.profile
 
 ## LilyPond itself requires nothing more, but you may wish to install
 ## extra packages that your personal workflow requires.  Adding them
 ## here will add them to the lilypond image without adding them to the
 ## lilypond-dev image.  Example:
 
+# USER root
 # RUN apt-get update \
 # && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
 #     make \
 # && rm -rf /var/lib/apt/lists/*
+# USER user
 
 ###########################################################################
 # lilypond-dev: for LilyPond development
 ###########################################################################
 FROM lilypond-base as lilypond-dev
 
-COPY ./urw35fonts.sh /root
-
 ## YUCK: Testing, e.g. make test-baseline, uses git.
 ##
+USER root
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
     autoconf \
@@ -110,5 +111,8 @@ RUN apt-get update \
     texlive-xetex \
     zip \
 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
-&& bash /root/urw35fonts.sh && rm /root/urw35fonts.sh \
 && rm -rf /var/lib/apt/lists/*
+
+USER user
+COPY ./install/urw35fonts.sh /home/user
+RUN bash ~/urw35fonts.sh && rm ~/urw35fonts.sh
