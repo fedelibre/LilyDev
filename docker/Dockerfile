@@ -109,6 +109,7 @@ RUN apt-get update \
     texlive-latex-recommended \
     texlive-metapost \
     texlive-xetex \
+    tidy \
     zip \
 && rm -rf /var/lib/apt/lists/*
 
