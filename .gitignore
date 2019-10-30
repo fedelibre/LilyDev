@@ -1,5 +1,5 @@
 # Emacs backup/lock/autosave files.
-.*~
+*~
 .\#*
 \#*\#
 
