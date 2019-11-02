@@ -34,7 +34,7 @@ while you can work on the source code in your host environment.
    LILY_BUILD_DIR=...
    LILY_SRC_DIR=...
    ```
-   
+
    Before you start using the build directory, consider whether you
    want to configure operating system options such as storage quotas,
    backup exclusions, and indexing exclusions.  A full build including
@@ -57,17 +57,26 @@ while you can work on the source code in your host environment.
 
        $ ./enter lilydev
 
+   This command may be used multiple times.  It executes a new login
+   shell each time.
+
 4. Build and test LilyPond.  The first step is to configure the build
    from the build directory:
 
        [lilydev:~/lilypond-build]
-       # ../lilypond-src/autogen.sh
+       $ ../lilypond-src/autogen.sh
 
    For further instruction, refer to the LilyPond Contributor's Guide.
 
 5. When you are done working, type Ctrl-D and clean up:
 
-       $ docker-compose down lilydev
+       $ docker-compose down
+
+    :warning: This command shuts down all running services defined in
+    `docker-compose.yaml`.  If both "lilydev" and "lilypond"
+    containers are running and you want to shut down just one, you
+    must instead use `docker` to address the individual container.
+    Refer to the manual.
 
 6. Quit Docker
 
@@ -100,11 +109,11 @@ while you can work on the source code in your host environment.
    begin with a global syntax update:
 
        [lilypond:~/user-build]
-       # rm -rf *
+       $ rm -rf *
        [lilypond:~/user-build]
-       # cp -a ~/user-src/* .
+       $ cp -a ~/user-src/* .
        [lilypond:~/user-build]
-       # find . -name '*.ly' | xargs convert-ly -e
+       $ find . -name '*.ly' | xargs convert-ly -e
        ...
 
 ## Appendix A: Example `.env` for macOS
