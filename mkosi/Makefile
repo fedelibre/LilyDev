@@ -1,5 +1,5 @@
 NAME = LilyDev
-RELEASE = 0.4
+RELEASE = 1
 
 DEBIAN_CONTAINER_SRC = $(wildcard debian/mkosi.container.d/*) $(wildcard debian/mkosi.extra) debian/mkosi.postinst
 DEBIAN_VM_SRC = $(wildcard debian/mkosi.vm.d/*) $(wildcard debian/mkosi.extra) debian/mkosi.postinst
