@@ -30,6 +30,8 @@ then
   git clone git://github.com/gperciva/lilypond-extra/
   echo "Downloading lilypond-git repository..."
   git clone git://git.sv.gnu.org/lilypond.git lilypond-git
+  echo "Downloading gub repository..."
+  git clone git@github.com:gperciva/gub.git gub
 else
   echo "Repositories already downloaded. Skipping..."
   echo
