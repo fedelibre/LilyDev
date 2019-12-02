@@ -12,8 +12,14 @@ COPY ./install/xenial.list /etc/apt/sources.list.d/xenial.list
 ## --no-install-recommends avoids installing recommended but not
 ## required packages, e.g. xterm.
 ##
+## The fonts-texgyre package (the preferred default fonts) is not
+## strictly required, since LilyPond can fall back on other fonts, but
+## it is convenient to include in the base image so that it is
+## consistently available in derived images.
+##
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+    fonts-texgyre \
     ghostscript \
     guile-1.8 \
     libpangoft2-1.0-0 \
@@ -75,7 +81,6 @@ RUN apt-get update \
     fonts-freefont-ttf \
     fonts-ipafont-gothic \
     fonts-ipafont-mincho \
-    fonts-texgyre \
     g++ \
     gettext \
     git \
