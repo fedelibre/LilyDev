@@ -22,38 +22,38 @@ help:
 # Images to be released and uploaded on Github.
 images: debian debian-vm
 
-debian: $(NAME)-debian-$(RELEASE)
-$(NAME)-debian-$(RELEASE): $(DEBIAN_CONTAINER_SRC)
+debian: $(NAME)-$(RELEASE)-debian
+$(NAME)-$(RELEASE)-debian: $(DEBIAN_CONTAINER_SRC)
 	@echo 'Build Debian container.'
-	cd debian && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-debian-$(RELEASE)
+	cd debian && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-$(RELEASE)-debian
 
-debian-vm: $(NAME)-debian-vm-$(RELEASE).img
-$(NAME)-debian-vm-$(RELEASE).img: $(DEBIAN_VM_SRC)
+debian-vm: $(NAME)-$(RELEASE)-debian-vm.img
+$(NAME)-$(RELEASE)-debian-vm.img: $(DEBIAN_VM_SRC)
 	@echo 'Build Debian virtual machine.'
-	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/$(NAME)-debian-vm-$(RELEASE).img
+	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/$(NAME)-$(RELEASE)-debian-vm.img
 
 
 # Other images, just in case...
-fedora: $(NAME)-fedora-$(RELEASE)
-$(NAME)-fedora-$(RELEASE): $(FEDORA_CONTAINER_SRC)
+fedora: $(NAME)-$(RELEASE)-fedora
+$(NAME)-$(RELEASE)-fedora: $(FEDORA_CONTAINER_SRC)
 	@echo 'Build Fedora container.'
-	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-fedora-$(RELEASE)
+	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-$(RELEASE)-fedora
 
-fedora-vm: $(NAME)-fedora-vm-$(RELEASE).img
-$(NAME)-fedora-vm-$(RELEASE).img: $(FEDORA_VM_SRC)
+fedora-vm: $(NAME)-$(RELEASE)-fedora-vm.img
+$(NAME)-$(RELEASE)-fedora-vm.img: $(FEDORA_VM_SRC)
 	@echo 'Build Fedora virtual machine.'
-	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/$(NAME)-fedora-vm-$(RELEASE).img
+	cd fedora && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/$(NAME)-$(RELEASE)-fedora-vm.img
 
 
 # Archive files to be uploaded to Github
-release: $(NAME)-debian-$(RELEASE).tar.xz $(NAME)-debian-vm-$(RELEASE).zip
-$(NAME)-debian-$(RELEASE).tar.xz:
+release: $(NAME)-$(RELEASE)-debian.tar.xz $(NAME)-$(RELEASE)-debian-vm.zip
+$(NAME)-$(RELEASE)-debian.tar.xz:
 	@echo 'Create Debian container archive for Github.'
-	sudo tar -vcJf $(NAME)-debian-$(RELEASE).tar.xz $(NAME)-debian-$(RELEASE)
+	sudo tar -vcJf $(NAME)-$(RELEASE)-debian.tar.xz $(NAME)-$(RELEASE)-debian
 
-$(NAME)-debian-vm-$(RELEASE).zip:
+$(NAME)-$(RELEASE)-debian-vm.zip:
 	@echo 'Create Debian virtual machine archive for Github.'
-	sudo zip -v $(NAME)-debian-vm-$(RELEASE).zip SHA256SUMS $(NAME)-debian-vm-$(RELEASE).img
+	sudo zip -v $(NAME)-$(RELEASE)-debian-vm.zip SHA256SUMS $(NAME)-$(RELEASE)-debian-vm.img
 
 clean:
 	sudo rm -rf $(NAME)* SHA256SUMS
