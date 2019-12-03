@@ -16,6 +16,8 @@ Packages=
     less
     make
     nano
+    openssh
+    openssh-clients
     sudo
     wget
 

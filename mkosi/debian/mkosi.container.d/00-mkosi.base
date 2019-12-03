@@ -15,6 +15,7 @@ Packages=
     less
     make
     nano
+    openssh-client
     sudo
     unzip
     wget
