@@ -31,7 +31,7 @@ then
   echo "Downloading lilypond-git repository..."
   git clone git://git.sv.gnu.org/lilypond.git lilypond-git
   echo "Downloading gub repository..."
-  git clone git@github.com:gperciva/gub.git gub
+  git clone git://github.com/gperciva/gub.git gub
 else
   echo "Repositories already downloaded. Skipping..."
   echo
@@ -60,6 +60,7 @@ NimbusSans-Regular.otf"
 # Download each font file
 if [ ! -d ~/.local/share/fonts ];
 then
+  echo "Download Greek and Cyrillic fonts from Ghostscript URW35..."
   for font in $URW35FONTS
   do
     # The URL GET parameter f=$font will be replaced with the font file name
