@@ -21,8 +21,8 @@ Packages=
     sudo
     wget
 
-    # LilyPond dependencies
-    # See Buildrequires here: https://src.fedoraproject.org/rpms/lilypond/blob/master/f/lilypond.spec
+    # Packages required or recommended by LilyPond
+    # See also Buildrequires here: https://src.fedoraproject.org/rpms/lilypond/blob/master/f/lilypond.spec
     bison
     compat-guile18-devel
     dblatex
@@ -47,6 +47,7 @@ Packages=
     texlive-collection-langcyrillic
     texlive-metapost
     texlive-tex-gyre
+    tidy
     urw-base35-fonts
 
     # GUB dependencies

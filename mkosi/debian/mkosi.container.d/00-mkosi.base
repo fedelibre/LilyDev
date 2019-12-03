@@ -19,7 +19,7 @@ Packages=
     sudo
     unzip
     wget
-    # LilyPond dependencies
+    # Packages required or recommended by LilyPond
     autoconf
     autotools-dev
     bison
@@ -67,6 +67,7 @@ Packages=
     texlive-latex-recommended
     texlive-metapost
     texlive-xetex
+    tidy
     xfonts-intl-arabic
     xfonts-intl-asian
     xfonts-intl-chinese
