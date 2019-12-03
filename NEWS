@@ -1,0 +1,57 @@
+Version 1
+---------
+
+Released: 2019-12-04
+
+Changes:
+
+- Auto-resize and Guest Additions in Virtualbox will now work, as the images
+  contain virtualbox-guest-* packages.
+- Applications which require root privileges, such as Synaptics, can now
+  be started without errors.
+- Add a few packages recommended for LilyPond development: openssh, tidy.
+- Add GUB repository and packages needed to crosscompile LilyPond (but GUB
+  builds have not been thoroughly tested).
+- Fix message error "Unable to resolv host lilydev".
+
+
+Version 0.3
+-----------
+
+Released: 2018-12-12
+
+Changes:
+
+- New Docker container based on Ubuntu 18.04: download this repository and
+  follow the instructions in `docker/`.
+- The images uploaded in Releases are based on Debian 9 Stretch.
+  (Fedora images, upgraded to version 29, can still be generated
+  using the Makefile)
+- The Debian virtual machine is now using the XFCE desktop environment.
+- Debian images have all the dependencies to run GUB.
+
+
+Version 0.2
+-----------
+
+Released: 2017-10-30
+
+Changes:
+
+- Added a Debian container, based on stretch.
+- Fedora images upgraded to version 27.
+- Added all dependencies needed to build LilyPond without
+  any warning: extractpdfmark, URW-35 OpenType font
+  files (thanks to @karlinhigh).
+- GUI apps can now be run from the container out of the
+  box. This is based on a couple of assumptions, which
+  should be correct most of the times (see the README).
+
+
+Version 0.1
+-----------
+
+Released: 2017-07-14
+
+This is the first version of LilyDev built using mkosi.
+The images are based on Fedora 26.
