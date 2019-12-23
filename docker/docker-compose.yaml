@@ -17,6 +17,12 @@ services:
     ports:
       - "127.0.0.1:10445:445/tcp" # SMB
 
+    security_opt:
+      - seccomp:unconfined
+
+    ulimits:
+      core: -1
+
     volumes:
       - type: bind
         source: ${LILY_SRC_DIR}
