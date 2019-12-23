@@ -102,7 +102,6 @@ RUN apt-get update \
     mftrace \
     netpbm \
     pkg-config \
-    python-all-dev \
     quilt \
     rsync \
     texi2html \
