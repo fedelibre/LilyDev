@@ -66,6 +66,14 @@ FROM lilypond-base as lilypond-dev
 
 ## YUCK: Testing, e.g. make test-baseline, uses git.
 ##
+## Packages that are for debugging and profiling rather than building
+## and testing:
+##
+##   * gdb
+##   * less
+##   * moreutils (ts, errno, etc.)
+##   * strace
+##
 USER root
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
@@ -82,6 +90,7 @@ RUN apt-get update \
     fonts-ipafont-gothic \
     fonts-ipafont-mincho \
     g++ \
+    gdb \
     gettext \
     git \
     groff \
@@ -90,6 +99,7 @@ RUN apt-get update \
     guile-1.8-dev \
     help2man \
     imagemagick \
+    less \
     libfl-dev \
     libfontconfig1-dev \
     libfreetype6-dev \
@@ -100,10 +110,12 @@ RUN apt-get update \
     m4 \
     make \
     mftrace \
+    moreutils \
     netpbm \
     pkg-config \
     quilt \
     rsync \
+    strace \
     texi2html \
     texinfo \
     texlive-fonts-recommended \
