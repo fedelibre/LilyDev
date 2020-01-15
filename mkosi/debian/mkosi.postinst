@@ -60,3 +60,6 @@ apt install -y libc6:i386
 echo "deb http://ftp.debian.org/debian stretch-backports main contrib" >> /etc/apt/sources.list
 apt update
 DEBIAN_FRONTEND=noninteractive apt -t stretch-backports install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+
+# Group membership in 'vboxsf' allow accessing VirtualBox 'shared folders'
+usermod -aG vboxsf dev
