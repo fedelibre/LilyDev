@@ -12,7 +12,9 @@ Packages=
     ca-certificates
     git
     gitk
+    keyboard-configuration
     less
+    locales
     make
     nano
     openssh-client
