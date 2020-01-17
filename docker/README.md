@@ -1,10 +1,11 @@
 # Docker
 
-LilyDev Docker image is the recommended choice for Windows and macOS
-users who prefer a lightweight container over a full virtual machine.
-Working with a Docker container is different from what you are used to
-in virtual machines: the container is used only to run the build,
-while you can work on the source code in your host environment.
+LilyDev Docker image is recommended for Windows and macOS users who
+prefer a build environment more limited in scope than a full Linux
+development environment running in a virtual machine.  The Docker
+container is used for building, running, and debugging LilyPond, but
+source control and editing are done on the host with your choice of
+tools.
 
 ## Initial Setup
 
@@ -24,23 +25,17 @@ while you can work on the source code in your host environment.
        $ docker logout
 
 2. The provided `docker-compose.yaml` has rules to set up a container
-   named "lilydev" with full access to separate source and build
-   directories.  To tell Docker the host directories to use, create a
-   file named `.env` in this directory, holding the following variable
-   definitions referring to host directories by absolute path.
+   named "lilydev" with full access to the host directory holding
+   LilyPond source.  To tell Docker the host directory to use, create
+   a file named `.env` in the same directory as `docker-compose.yaml`,
+   holding the following variable definition referring to the host
+   directory by absolute path.
    
    ```shell
-   LILY_BUILD_DIR=...
    LILY_SRC_DIR=...
    ```
 
-   Before you start using the build directory, consider whether you
-   want to configure operating system options such as storage quotas,
-   backup exclusions, and indexing exclusions.  A full build including
-   regression tests and documentation required 4 GB when the author
-   tested it in August 2018.
-
-3. Build the image for the lilydev service.
+3. Build the image for the "lilydev" service.
 
        $ docker-compose build lilydev
 
@@ -48,27 +43,33 @@ while you can work on the source code in your host environment.
 
 1. Start Docker
 
-2. Start the lilydev container:
+2. Start the "lilydev" container:
 
        $ docker-compose up -d lilydev
 
-3. Log into the container:
+3. (Optional) Mount the build directory, which Docker manages
+   internally, onto the host.  This makes it easy to review build
+   products using familiar tools on the host.  While the container is
+   running, the build directory is accessible at
+   [smb://guest:@127.0.0.1:10445/lilypond-build](smb://guest:@127.0.0.1:10445/lilypond-build).
+
+4. Log into the container:
 
        $ ./enter lilydev
 
    This command may be used multiple times.  It executes a new login
    shell each time.
 
-4. Build and test LilyPond.  The first step is to configure the build
+5. Build and test LilyPond.  The first step is to configure the build
    from the build directory:
 
        [lilydev:~/lilypond-build]
        $ ../lilypond-src/autogen.sh
+   
+   For further instruction, refer to the LilyPond _Contributor's
+   Guide._
 
-   For further instruction, refer to the LilyPond Contributor's Guide.
-
-5. When you are done working, type Ctrl-D and clean up:
-
+6. When you are done working, type Ctrl-D and clean up:
        $ docker-compose down
 
     :warning: This command shuts down all running services defined in
@@ -77,7 +78,7 @@ while you can work on the source code in your host environment.
     must instead use `docker` to address the individual container.
     Refer to the manual.
 
-6. Quit Docker
+7. Quit Docker
 
 ## Using Your Own Scores and Fonts
 
@@ -99,14 +100,14 @@ while you can work on the source code in your host environment.
    (see [Appendix&nbsp;A](#Appendix-A)).  Any of these may be left
    unset if they are not wanted.
 
-2. Build the image for the lilypond service.
+2. Build the image for the "lilypond" service.
 
        $ docker-compose build lilypond
 
-3. Using the lilypond container is like using the lilydev container.
-   A round of testing a new LilyPond feature on personal scores might
-   begin with a global syntax update:
 
+3. Using the "lilypond" container is like using the "lilydev"
+   container.  A round of testing a new LilyPond feature on personal
+   scores might begin with a global syntax update:
        [lilypond:~/user-build]
        $ rm -rf *
        [lilypond:~/user-build]
@@ -124,12 +125,12 @@ This is what a hypothetical macOS user named "jsb" might provide in
 ```shell
 HOST_EXTRA_FONTS_DIR=/Library/Fonts
 HOST_SYSTEM_FONTS_DIR=/System/Library/Fonts
-LILY_BUILD_DIR=/Volumes/LilyPond/lilypond-build
 LILY_SRC_DIR=/Users/jsb/Projects/LilyPond/git
 USER_BUILD_DIR=/Volumes/LilyPond/user-build
 USER_FONTS_DIR=/Users/jsb/Library/Fonts
 USER_SRC_DIR=/Users/jsb/Music/LilyPond/trunk
 ```
+
 ## Appendix B: Tips for macOS Hosts
 
 * Accessing host files from the container is relatively slow.  To
