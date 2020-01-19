@@ -44,3 +44,7 @@ make install
 # http://lists.gnu.org/archive/html/lilypond-devel/2019-01/msg00062.html
 sudo dnf -y --releasever=27 --disablerepo=fedora-modular --disablerepo=updates-modular downgrade gcc
 echo 'exclude=gcc*' >> /etc/dnf/dnf.conf
+
+# Group membership in 'vboxsf' allow accessing VirtualBox 'shared folders'
+usermod -aG vboxsf dev
+
