@@ -1,3 +1,15 @@
+Version 2
+---------
+
+Released:
+
+Changes:
+
+- Allow access to VirtualBox shared folders by default in Debian image.
+- Add necessary packages for keyboard and locale setup.
+- Fix the git-bash-prompt.
+- Allocate more space (25G) for root partition, for GUB build.
+
 Version 1
 ---------
 
