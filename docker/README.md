@@ -24,12 +24,11 @@ while you can work on the source code in your host environment.
        $ docker logout
 
 2. The provided `docker-compose.yaml` has rules to set up a container
-   named "lilydev" with read-only access to the source directory and
-   full access to a separate directory for build artifacts.  To tell
-   Docker the host directories to use, create a file named `.env` in
-   this directory, holding the following variable definitions
-   referring to host directories by absolute path.
-
+   named "lilydev" with full access to separate source and build
+   directories.  To tell Docker the host directories to use, create a
+   file named `.env` in this directory, holding the following variable
+   definitions referring to host directories by absolute path.
+   
    ```shell
    LILY_BUILD_DIR=...
    LILY_SRC_DIR=...

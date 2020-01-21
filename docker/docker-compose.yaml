@@ -12,7 +12,6 @@ services:
       - type: bind
         source: ${LILY_SRC_DIR}
         target: /home/user/lilypond-src
-        read_only: true
       - type: bind
         source: ${LILY_BUILD_DIR}
         target: /home/user/lilypond-build
