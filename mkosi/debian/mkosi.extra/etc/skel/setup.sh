@@ -18,7 +18,7 @@ fi
 
 
 ###  DOWNLOAD REPOSITORIES  ###
-if [ ! -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra ];
+if [ ! -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra -a ~/gub -a ~/LilyDev];
 then
   echo "Now we'll download the repositories needed to contribute to LilyPond development. Proceed only if you have a working Internet connection."
   read -p "Press Enter to continue. "
@@ -32,6 +32,8 @@ then
   git clone git://git.sv.gnu.org/lilypond.git lilypond-git
   echo "Downloading gub repository..."
   git clone git://github.com/gperciva/gub.git gub
+  echo "Downloading LilyDev repository..."
+  git clone git://github.com/fedelibre/LilyDev.git
 else
   echo "Repositories already downloaded. Skipping..."
   echo
