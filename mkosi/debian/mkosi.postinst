@@ -63,3 +63,27 @@ DEBIAN_FRONTEND=noninteractive apt -t stretch-backports install -y virtualbox-gu
 
 # Group membership in 'vboxsf' allow accessing VirtualBox 'shared folders'
 usermod -aG vboxsf dev
+
+# We need Python 3.6 in order to run a current mkosi version
+# Python 3.6 is not available for Debian stretch, safest approach
+# is to compile it from source
+cd /home/dev
+wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz
+tar xf Python-3.6.9.tgz
+cd Python-3.6.9
+# compiling with --enable-optimizations creates a faster interpreter,
+# but needs plenty of time during compiling due to test runs
+./configure
+make
+# make altinstall is recommended to leave the system's old python3
+# intact, see: https://docs.python.org/3/using/unix.html#building-python
+make altinstall
+# remove build directory afterwards
+rm -r /home/dev/Python-3.6.9
+
+# Download mkosi v5 from systemd/mkosi repo and install it
+cd /home/dev
+git clone -b v5 --single-branch -depth 1 git://github.com/systemd/mkosi.git
+/usr/local/bin/python3.6 mkosi/setup.py install
+# remove sources
+rm -r mkosi
