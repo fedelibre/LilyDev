@@ -79,3 +79,8 @@ Packages=
     xfonts-intl-japanese-big
     xfonts-intl-phonetic
     zip
+    # Packages required for building LilyDev
+    btrfs-tools
+    debootstrap
+    dosfstools
+    systemd-container

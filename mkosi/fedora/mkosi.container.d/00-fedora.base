@@ -52,3 +52,9 @@ Packages=
 
     # GUB dependencies
     glibc.i686
+
+    # Packages required for building LilyDev
+    btrfs-progs
+    debootstrap
+    dosfstools
+    systemd-container
