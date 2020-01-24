@@ -18,7 +18,7 @@ fi
 
 
 ###  DOWNLOAD REPOSITORIES  ###
-if [ ! -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra -a ~/gub -a ~/LilyDev];
+if [ ! -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra -a ~/gub -a ~/LilyDev ];
 then
   echo "Now we'll download the repositories needed to contribute to LilyPond development. Proceed only if you have a working Internet connection."
   read -p "Press Enter to continue. "
