@@ -70,6 +70,7 @@ usermod -aG vboxsf dev
 cd /home/dev
 wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz
 tar xf Python-3.6.9.tgz
+rm Python-3.6.9.tgz
 cd Python-3.6.9
 # compiling with --enable-optimizations creates a faster interpreter,
 # but needs plenty of time during compiling due to test runs
@@ -83,7 +84,8 @@ rm -r /home/dev/Python-3.6.9
 
 # Download mkosi v5 from systemd/mkosi repo and install it
 cd /home/dev
-git clone -b v5 --single-branch -depth 1 git://github.com/systemd/mkosi.git
-/usr/local/bin/python3.6 mkosi/setup.py install
+git clone -b v5 --single-branch --depth 1 git://github.com/systemd/mkosi.git
+cd mkosi
+/usr/local/bin/python3.6 setup.py install
 # remove sources
-rm -r mkosi
+rm -r /home/dev/mkosi
