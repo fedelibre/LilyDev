@@ -32,7 +32,8 @@ In particular, remember that you need to enable EFI or the image won't boot.
 If your host is running Linux, you can use QEMU.  It works well with either
 the raw image or its own format (qcow2), which you can generate it with:
 
-    qemu-img convert -f raw -O qcow2 LilyDev-VERSION-debian-vm.img LilyDev-VERSION-debian-vm.qcow2
+    qemu-img convert -f raw -O qcow2 \
+    LilyDev-VERSION-debian-vm.img LilyDev-VERSION-debian-vm.qcow2
 
 Raw images give optimal performance, but only basic features are available
 (for example, no snapshots). qcow2 is the QEMU image format and has a number of
@@ -46,7 +47,11 @@ Move the image to the usual location for libvirt images:
 Now you can *register* the virtual machine in libvirt or, in libvirt terms,
 *define a domain*:
 
-    virt-install --name LilyDev-VERSION-debian-vm --memory 1024 --os-type=linux --os-variant=debian9 --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd --network=default --disk ~/.local/share/libvirt/images/LilyDev-VERSION-debian-vm.qcow2 --noautoconsole --import
+    virt-install --name LilyDev-VERSION-debian-vm \
+    --memory 1024 --os-type=linux --os-variant=debian9 \
+    --boot loader=/usr/share/edk2/ovmf/OVMF_CODE.fd --network=default \
+    --disk ~/.local/share/libvirt/images/LilyDev-VERSION-debian-vm.qcow2 \
+    --noautoconsole --import
 
 (available OS variants are listed by the command `osinfo-query os`)
 
