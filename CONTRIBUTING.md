@@ -1,10 +1,12 @@
 # Contributing to LilyDev
 
 The images are built using [mkosi](https://github.com/systemd/mkosi/).
-mkosi required version is 3 or later.
+mkosi required version is 5 or later.
 
 If your distro has an older version, you should install it from source.
 Dependencies are listed on mkosi README.
+Python 3.6 is needed for mkosi 5.
+
 Then download the repository and run the installation:
 
     git clone git@github.com:systemd/mkosi.git
