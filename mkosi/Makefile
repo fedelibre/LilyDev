@@ -25,19 +25,19 @@ images: debian debian-vm
 debian: $(NAME)-$(RELEASE)-debian
 $(NAME)-$(RELEASE)-debian: $(DEBIAN_CONTAINER_SRC)
 	@echo 'Build Debian container.'
-	cd debian && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-$(RELEASE)-debian
+	cd debian && sudo mkosi -f --default mkosi.container -o $(PWD)/$(NAME)-$(RELEASE)-debian
 
 debian-vm: $(NAME)-$(RELEASE)-debian-vm.img
 $(NAME)-$(RELEASE)-debian-vm.img: $(DEBIAN_VM_SRC)
 	@echo 'Build Debian virtual machine.'
-	cd debian && sudo mkosi -f --checksum --default mkosi.vm --password="" -o $(PWD)/$(NAME)-$(RELEASE)-debian-vm.img
+	cd debian && sudo mkosi -f --checksum --default mkosi.vm -o $(PWD)/$(NAME)-$(RELEASE)-debian-vm.img
 
 
 # Other images, just in case...
 fedora: $(NAME)-$(RELEASE)-fedora
 $(NAME)-$(RELEASE)-fedora: $(FEDORA_CONTAINER_SRC)
 	@echo 'Build Fedora container.'
-	cd fedora && sudo mkosi -f --default mkosi.container --password="" -o $(PWD)/$(NAME)-$(RELEASE)-fedora
+	cd fedora && sudo mkosi -f --default mkosi.container -o $(PWD)/$(NAME)-$(RELEASE)-fedora
 
 fedora-vm: $(NAME)-$(RELEASE)-fedora-vm.img
 $(NAME)-$(RELEASE)-fedora-vm.img: $(FEDORA_VM_SRC)

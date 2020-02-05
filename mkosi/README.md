@@ -101,25 +101,16 @@ Start the container:
 
     sudo systemd-nspawn -bD LilyDev-VERSION-DISTRO
 
-At the login type `root` and press Enter (no password needed).  Then change to
-the regular user `dev`, go to the home directory and run the setup.sh script:
+and log in as `dev` user (the password is `lilypond`).
+Launch the setup.sh script:
 
-    su dev
-    cd
-    ./setup.sh    # this should be run only the first time
+    ./setup.sh
 
 You are now ready to start contributing to LilyPond.
 
-When you've done, you can shutdown the machine with these commands:
+When you've done, you can shutdown the machine:
 
-    $ exit
-    # shutdown -h now
-
-(the first command will let you go back from dev user to root user,
-who has the privileges to shutdown the system)
-
-Remember that `dev` user can get root privileges with `sudo` (even if you
-should not need it). The password is `lilypond`.
+    sudo shutdown -h now
 
 There's a good chance that your user in the Linux host and the `dev` user
 in the container have the same uid (probably 1000, use the command `id`
