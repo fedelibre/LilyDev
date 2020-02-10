@@ -57,9 +57,9 @@ apt install -y libc6:i386
 # might be useful also to install more recent software). It should be
 # safe, as packages from backports have low priority (100) and cannot be
 # installed accidentally.
-echo "deb http://ftp.debian.org/debian stretch-backports main contrib" >> /etc/apt/sources.list
+echo "deb http://ftp.debian.org/debian sid main contrib" >> /etc/apt/sources.list
 apt update
-DEBIAN_FRONTEND=noninteractive apt -t stretch-backports install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+DEBIAN_FRONTEND=noninteractive apt -t sid install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 
 # Group membership in 'vboxsf' allow accessing VirtualBox 'shared folders'
 usermod -aG vboxsf dev
