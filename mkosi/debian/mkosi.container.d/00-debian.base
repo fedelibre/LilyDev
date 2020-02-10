@@ -1,6 +1,6 @@
 [Distribution]
 Distribution=debian
-Release=stretch
+Release=buster
 
 [Packages]
 # We need a network connection when running mkosi.postinst

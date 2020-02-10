@@ -26,9 +26,6 @@ which requires VDI images.  You can generate it with this command:
 Please follow all the steps described in the LilyPond Contributor guide to
 [install and configure the VirtualBox machine](http://lilypond.org/doc/v2.19/Documentation/contributor/lilydev#installing-lilydev-in-virtualbox).
 In particular, remember that you need to enable EFI or the image won't boot.
-With the current legacy version of VirtualBox guest additions from
-stretch-backports, only the VBoxVGA graphics driver will allow to
-dynamically resize the host window.
 
 ### QEMU/libvirt
 
