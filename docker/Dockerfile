@@ -78,6 +78,7 @@ FROM lilypond-base as lilypond-dev
 USER root
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+    astyle \
     autoconf \
     autotools-dev \
     bison \
