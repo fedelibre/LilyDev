@@ -23,7 +23,7 @@ RUN apt-get update \
     ghostscript \
     guile-1.8 \
     libpangoft2-1.0-0 \
-    python-all \
+    python3 \
     sudo \
 && rm -rf /var/lib/apt/lists/*
 
