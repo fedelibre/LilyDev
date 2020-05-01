@@ -32,7 +32,7 @@ export LILYPOND_WEB_MEDIA_GIT=~/lilypond-extra
 GUILE_CONFIG=/usr/local/bin/guile-config
 
 # Add other directories to the PATH
-export PATH=$HOME/git-cl:$LILYPOND_GIT/scripts/auxiliar:$PATH
+export PATH=~/git-cl:~/lilypond-git/scripts/auxiliar:$PATH
 EOF
 
 # guile-1.8 is not available on debian stable repository,
