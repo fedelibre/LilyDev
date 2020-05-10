@@ -1,7 +1,7 @@
 ###########################################################################
 # lilypond-base: minimal image for running lilypond and its scripts
 ###########################################################################
-FROM ubuntu:19.10 as lilypond-base
+FROM ubuntu:20.04 as lilypond-base
 
 # Allow taking Guile 1.8 (and prerequisites) from Ubuntu 16.04.
 COPY ./install/xenial.list /etc/apt/sources.list.d/xenial.list
@@ -23,13 +23,19 @@ RUN apt-get update \
     ghostscript \
     guile-1.8 \
     libpangoft2-1.0-0 \
+    python-is-python3 \
     python3 \
     sudo \
 && rm -rf /var/lib/apt/lists/*
 
 # Add a non-root user who can run sudo without a password.
+#
+# TODO: 'Set disable_coredump false' squelches an error message in sudo 1.8.29.
+# It will be unnecessary with sudo >= 1.8.31p1.
+#
 RUN useradd -m -s /bin/bash user \
 && adduser user sudo \
+&& echo 'Set disable_coredump false' >> /etc/sudo.conf \
 && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
 && sudo -u user touch ~user/.sudo_as_admin_successful
 
@@ -91,6 +97,7 @@ RUN apt-get update \
     fonts-freefont-ttf \
     fonts-ipafont-gothic \
     fonts-ipafont-mincho \
+    fonts-urw-base35 \
     g++ \
     gdb \
     gettext \
@@ -130,10 +137,6 @@ RUN apt-get update \
     tidy \
     zip \
 && rm -rf /var/lib/apt/lists/*
-
-USER user
-COPY ./install/urw35fonts.sh /home/user
-RUN bash ~/urw35fonts.sh && rm ~/urw35fonts.sh
 
 # Support sharing the build directory with Samba.  If you don't need
 # this, you can reduce the image size slightly by commenting it out.
