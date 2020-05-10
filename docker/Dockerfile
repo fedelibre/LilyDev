@@ -113,6 +113,7 @@ RUN apt-get update \
     libfontconfig1-dev \
     libfreetype6-dev \
     libgmp3-dev \
+    libgs-dev \
     libltdl-dev \
     libpango1.0-dev \
     lmodern \
