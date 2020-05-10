@@ -11,6 +11,9 @@ services:
         context: .
         target: lilypond-dev
 
+    environment:
+      - PYTHONPATH=/home/user/lilypond-src/python
+
     ports:
       - "127.0.0.1:10445:445/tcp" # SMB
 
@@ -36,6 +39,9 @@ services:
     build:
         context: .
         target: lilypond
+
+    environment:
+      - PYTHONPATH=/home/user/lilypond-src/python
 
     volumes:
       - type: bind
