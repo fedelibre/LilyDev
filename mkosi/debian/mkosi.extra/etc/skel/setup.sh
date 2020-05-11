@@ -29,7 +29,7 @@ then
   echo "Downloading lilypond-extra repository..."
   git clone git://github.com/gperciva/lilypond-extra/
   echo "Downloading lilypond-git repository..."
-  git clone git://git.sv.gnu.org/lilypond.git lilypond-git
+  git clone git@gitlab.com:lilypond/lilypond.git lilypond-git
   echo "Downloading gub repository..."
   git clone git://github.com/gperciva/gub.git gub
 else
