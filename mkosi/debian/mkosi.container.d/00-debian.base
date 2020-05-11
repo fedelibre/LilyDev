@@ -37,6 +37,7 @@ Packages=
     fonts-ipafont-gothic
     fonts-ipafont-mincho
     fonts-texgyre
+    fonts-urw-base35
     gettext
     ghostscript
     groff
