@@ -123,8 +123,8 @@ In case the id is different, read
 ### Running graphical applications from the container
 
 You might need to run one or more graphical applications from the container,
-for example gitk or lily-git.  This should work out of the box, if two
-requirements are met:
+for example gitk.  This should work out of the box, if two requirements
+are met:
 
 1. The id of the guest user must the same as the id of the host user. Usually
    it is the same; if it's not, see above link.

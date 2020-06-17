@@ -8,8 +8,7 @@ Changes:
 - Remove blank root password and lock the root account in the
   containers (and in Debian virtual machine, where it was
   accidentally unlocked).
-- Fix paths to some auxiliary scripts like `git cl` and `lily-git`
-  in PATH (Debian).
+- Fix paths to some auxiliary scripts like `git cl` in PATH (Debian).
 
 Version 2
 ---------

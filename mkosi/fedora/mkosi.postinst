@@ -7,7 +7,7 @@ cat >> /home/dev/.bashrc <<EOF
 ### LilyDev custom settings ###
 
 # This variable is needed to be able to access the X display in the host
-# when running graphical applications, such as gitk or lily-git.cl.
+# when running graphical applications, such as gitk.
 # NOTE: The value of DISPLAY must be the same as in the host (usually it's :0,
 # so we made this assumption); the user id of guest and host users must be the
 # same (it should be the same, i.e. 1000), otherwise access to the display
