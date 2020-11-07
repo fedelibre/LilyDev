@@ -1,10 +1,7 @@
 ###########################################################################
-# lilypond-base: minimal image for running lilypond and its scripts
+# external: things not provided by Ubuntu
 ###########################################################################
-FROM ubuntu:20.04 as lilypond-base
-
-# Allow taking Guile 1.8 (and prerequisites) from Ubuntu 16.04.
-COPY ./install/xenial.list /etc/apt/sources.list.d/xenial.list
+FROM ubuntu:20.04 as external
 
 ## DEBIAN_FRONTEND=noninteractive prevents apt-get from prompting
 ## after certain packages are added.
@@ -12,6 +9,33 @@ COPY ./install/xenial.list /etc/apt/sources.list.d/xenial.list
 ## --no-install-recommends avoids installing recommended but not
 ## required packages, e.g. xterm.
 ##
+RUN apt-get update \
+&& DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+    binutils \
+    ca-certificates \
+    file \
+    gcc \
+    libc-dev \
+    libgmp-dev \
+    libltdl-dev \
+    libreadline-dev \
+    make \
+    wget \
+&& rm -rf /var/lib/apt/lists/*
+
+# Download and build Guile 1.8.8.
+RUN wget -q https://ftp.gnu.org/gnu/guile/guile-1.8.8.tar.gz \
+&& tar xf guile-1.8.8.tar.gz && mkdir build-guile1.8 && cd build-guile1.8 \
+&& /guile-1.8.8/configure --prefix=/usr --disable-error-on-warning \
+&& make -j$(nproc) && make install-strip DESTDIR=/install-guile1.8
+
+###########################################################################
+# lilypond-base: minimal image for running lilypond and its scripts
+###########################################################################
+FROM ubuntu:20.04 as lilypond-base
+
+COPY --from=external /install-guile1.8/ /
+
 ## The fonts-texgyre package (the preferred default fonts) is not
 ## strictly required, since LilyPond can fall back on other fonts, but
 ## it is convenient to include in the base image so that it is
@@ -21,7 +45,6 @@ RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
     fonts-texgyre \
     ghostscript \
-    guile-1.8 \
     libpangoft2-1.0-0 \
     python-is-python3 \
     python3 \
@@ -29,13 +52,8 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 # Add a non-root user who can run sudo without a password.
-#
-# TODO: 'Set disable_coredump false' squelches an error message in sudo 1.8.29.
-# It will be unnecessary with sudo >= 1.8.31p1.
-#
 RUN useradd -m -s /bin/bash user \
 && adduser user sudo \
-&& echo 'Set disable_coredump false' >> /etc/sudo.conf \
 && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
 && sudo -u user touch ~user/.sudo_as_admin_successful
 
@@ -105,7 +123,6 @@ RUN apt-get update \
     groff \
     gsfonts \
     gsfonts-x11 \
-    guile-1.8-dev \
     help2man \
     imagemagick \
     less \
@@ -129,11 +146,11 @@ RUN apt-get update \
     texi2html \
     texinfo \
     texlive-fonts-recommended \
-    texlive-generic-recommended \
     texlive-lang-cyrillic \
     texlive-latex-base \
     texlive-latex-recommended \
     texlive-metapost \
+    texlive-plain-generic \
     texlive-xetex \
     tidy \
     zip \
