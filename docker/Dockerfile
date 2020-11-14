@@ -112,17 +112,14 @@ RUN apt-get update \
     flex \
     fontforge \
     fonts-dejavu \
-    fonts-freefont-ttf \
-    fonts-ipafont-gothic \
-    fonts-ipafont-mincho \
+    fonts-linuxlibertine \
+    fonts-noto-cjk \
     fonts-urw-base35 \
     g++ \
     gdb \
     gettext \
     git \
     groff \
-    gsfonts \
-    gsfonts-x11 \
     help2man \
     imagemagick \
     less \
@@ -133,7 +130,6 @@ RUN apt-get update \
     libgs-dev \
     libltdl-dev \
     libpango1.0-dev \
-    lmodern \
     m4 \
     make \
     mftrace \
@@ -153,6 +149,7 @@ RUN apt-get update \
     texlive-plain-generic \
     texlive-xetex \
     tidy \
+    ttf-bitstream-vera \
     zip \
 && rm -rf /var/lib/apt/lists/*
 
