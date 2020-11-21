@@ -1,7 +1,7 @@
 ###########################################################################
 # external: things not provided by Ubuntu
 ###########################################################################
-FROM ubuntu:20.04 as external
+FROM ubuntu:21.04 as external
 
 ## DEBIAN_FRONTEND=noninteractive prevents apt-get from prompting
 ## after certain packages are added.
@@ -14,25 +14,35 @@ RUN apt-get update \
     binutils \
     ca-certificates \
     file \
-    gcc \
+    gcc-11 \
     libc-dev \
     libgmp-dev \
     libltdl-dev \
     libreadline-dev \
     make \
     wget \
+&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 800 --slave /usr/bin/g++ g++ /usr/bin/g++-11 \
 && rm -rf /var/lib/apt/lists/*
 
 # Download and build Guile 1.8.8.
 RUN wget -q https://ftp.gnu.org/gnu/guile/guile-1.8.8.tar.gz \
-&& tar xf guile-1.8.8.tar.gz && mkdir build-guile1.8 && cd build-guile1.8 \
-&& /guile-1.8.8/configure --prefix=/usr --disable-error-on-warning \
-&& make -j$(nproc) && make install-strip DESTDIR=/install-guile1.8
+&& tar xf guile-1.8.8.tar.gz \
+&& mkdir build-guile1.8 \
+&& cd build-guile1.8 \
+&& CPPFLAGS="\
+   -fno-inline-functions \
+   -Wno-error=deprecated-declarations \
+   -Wno-error=misleading-indentation \
+   -Wno-error=stringop-overflow \
+   -Wno-error=unused-but-set-variable \
+   " /guile-1.8.8/configure --prefix=/usr \
+&& make -j$(nproc) \
+&& make install-strip DESTDIR=/install-guile1.8
 
 ###########################################################################
 # lilypond-base: minimal image for running lilypond and its scripts
 ###########################################################################
-FROM ubuntu:20.04 as lilypond-base
+FROM ubuntu:21.04 as lilypond-base
 
 COPY --from=external /install-guile1.8/ /
 
@@ -115,7 +125,7 @@ RUN apt-get update \
     fonts-linuxlibertine \
     fonts-noto-cjk \
     fonts-urw-base35 \
-    g++ \
+    g++-11 \
     gdb \
     gettext \
     git \
@@ -151,6 +161,7 @@ RUN apt-get update \
     tidy \
     ttf-bitstream-vera \
     zip \
+&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 800 --slave /usr/bin/g++ g++ /usr/bin/g++-11 \
 && rm -rf /var/lib/apt/lists/*
 
 # Support sharing the build directory with Samba.  If you don't need
@@ -165,6 +176,7 @@ RUN apt-get update \
 && echo "[lilypond-build]" >> /etc/samba/smb.conf \
 && echo "   path = /home/user/lilypond-build" >> /etc/samba/smb.conf \
 && echo "   read only = yes" >> /etc/samba/smb.conf \
-&& echo "   guest ok = yes" >> /etc/samba/smb.conf
+&& echo "   guest ok = yes" >> /etc/samba/smb.conf \
+&& echo "   force user = user" >> /etc/samba/smb.conf
 
 USER user
