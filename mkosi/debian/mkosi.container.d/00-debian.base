@@ -37,7 +37,8 @@ Packages=
     fonts-ipafont-gothic
     fonts-ipafont-mincho
     fonts-texgyre
-    fonts-urw-base35
+    # Comment out as OTF fonts are available from version 20170801.1-3
+    #fonts-urw-base35  # to be installed from sid on post installation
     gettext
     ghostscript
     groff

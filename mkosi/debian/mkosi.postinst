@@ -53,13 +53,15 @@ dpkg --add-architecture i386
 apt update
 apt install -y libc6:i386
 
-# Add backports repositories to install packages needed by VirtualBox (but it
-# might be useful also to install more recent software). It should be
-# safe, as packages from backports have low priority (100) and cannot be
-# installed accidentally.
+# Utilities for closer integration with VirtualBox hosts.
 echo "deb http://ftp.debian.org/debian sid main contrib" >> /etc/apt/sources.list
 apt update
 DEBIAN_FRONTEND=noninteractive apt -t sid install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-
 # Group membership in 'vboxsf' allow accessing VirtualBox 'shared folders'
+groupadd vboxsf
 usermod -aG vboxsf dev
+
+# Install from sid, as version 20170801.1-2 in current Debian stable does
+# not have OTF fonts.
+DEBIAN_FRONTEND=noninteractive apt -t sid install -y fonts-urw-base35
+
