@@ -1,6 +1,4 @@
 #!/bin/bash
-# This file is different from that in the LilyDev Debian image, since in Fedora
-# we don't have to dowload the .otf files of URW fonts.
 
 ###  GIT CONFIGURATION  ###
 if [ ! -f ~/.gitconfig ];
@@ -20,23 +18,22 @@ fi
 
 
 ###  DOWNLOAD REPOSITORIES  ###
-if [ ! -d ~/git-cl -a ~/lilypond-git -a ~/lilypond-extra ];
-then
+if [ ! -d ~/gub -a ~/lilypond-extra -a ~/lilypond-git ]; then
   echo "Now we'll download the repositories needed to contribute to LilyPond development. Proceed only if you have a working Internet connection."
   read -p "Press Enter to continue. "
-  cd $HOME
-  echo "Cloning in your home directory: `pwd`. It will take a few minutes."
-  echo "Downloading git-cl repository..."
-  git clone git://github.com/gperciva/git-cl.git
-  echo "Downloading lilypond-extra repository..."
-  git clone git://github.com/gperciva/lilypond-extra/
-  echo "Downloading lilypond-git repository..."
-  git clone git@gitlab.com:lilypond/lilypond.git lilypond-git
+fi
+
+if [ ! -d ~/gub ]; then
   echo "Downloading gub repository..."
   git clone git://github.com/gperciva/gub.git gub
-else
-  echo "Repositories already downloaded. Skipping..."
-  echo
+fi
+if [ ! -d ~/lilypond-extra ]; then
+  echo "Downloading lilypond-extra repository..."
+  git clone git://github.com/gperciva/lilypond-extra/ ~/lilypond-extra
+fi
+if [ ! -d ~/lilypond-git ]; then
+  echo "Downloading lilypond-git repository..."
+  git clone https://gitlab.com/lilypond/lilypond.git lilypond-git
 fi
 
 
