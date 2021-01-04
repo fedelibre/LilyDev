@@ -1,7 +1,7 @@
 Version 3
 ---------
 
-Released: ?
+Released: 2021-01-05
 
 Changes:
 
@@ -9,6 +9,8 @@ Changes:
   containers (and in Debian virtual machine, where it was
   accidentally unlocked).
 - Fix paths to some auxiliary scripts like `git cl` in PATH (Debian).
+- Use the new git repository location at gitlab.com.
+- Upgrade to Debian 10 (Buster) and Fedora 33.
 
 Version 2
 ---------
