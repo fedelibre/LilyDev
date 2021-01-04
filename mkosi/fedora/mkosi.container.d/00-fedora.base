@@ -1,6 +1,6 @@
 [Distribution]
 Distribution=fedora
-Release=29
+Release=33
 
 [Packages]
 # We need a network connection when running mkosi.postinst
@@ -19,6 +19,7 @@ Packages=
     openssh
     openssh-clients
     sudo
+    tar
     wget
 
     # Packages required or recommended by LilyPond

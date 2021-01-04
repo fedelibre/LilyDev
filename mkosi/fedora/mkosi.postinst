@@ -40,7 +40,3 @@ cd texi2html-1.82
 make
 make install
 
-# Downgrade gcc from 8 to 7 to be able to run GUB successfully
-# http://lists.gnu.org/archive/html/lilypond-devel/2019-01/msg00062.html
-sudo dnf -y --releasever=27 --disablerepo=fedora-modular --disablerepo=updates-modular downgrade gcc
-echo 'exclude=gcc*' >> /etc/dnf/dnf.conf
