@@ -1,7 +1,7 @@
 ###########################################################################
 # external: things not provided by Ubuntu
 ###########################################################################
-FROM ubuntu:21.04 as external
+FROM ubuntu:21.10 as external
 
 ## DEBIAN_FRONTEND=noninteractive prevents apt-get from prompting
 ## after certain packages are added.
@@ -14,14 +14,13 @@ RUN apt-get update \
     binutils \
     ca-certificates \
     file \
-    gcc-11 \
+    gcc \
     libc-dev \
     libgmp-dev \
     libltdl-dev \
     libreadline-dev \
     make \
     wget \
-&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 800 --slave /usr/bin/g++ g++ /usr/bin/g++-11 \
 && rm -rf /var/lib/apt/lists/*
 
 # Download and build Guile 1.8.8.
@@ -42,7 +41,7 @@ RUN wget -q https://ftp.gnu.org/gnu/guile/guile-1.8.8.tar.gz \
 ###########################################################################
 # lilypond-base: minimal image for running lilypond and its scripts
 ###########################################################################
-FROM ubuntu:21.04 as lilypond-base
+FROM ubuntu:21.10 as lilypond-base
 
 COPY --from=external /install-guile1.8/ /
 
@@ -125,7 +124,7 @@ RUN apt-get update \
     fonts-linuxlibertine \
     fonts-noto-cjk \
     fonts-urw-base35 \
-    g++-11 \
+    g++ \
     gdb \
     gettext \
     git \
@@ -161,7 +160,6 @@ RUN apt-get update \
     tidy \
     ttf-bitstream-vera \
     zip \
-&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 800 --slave /usr/bin/g++ g++ /usr/bin/g++-11 \
 && rm -rf /var/lib/apt/lists/*
 
 # Support sharing the build directory with Samba.  If you don't need
