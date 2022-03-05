@@ -1,49 +1,7 @@
 ###########################################################################
-# external: things not provided by Ubuntu
-###########################################################################
-FROM ubuntu:21.10 as external
-
-## DEBIAN_FRONTEND=noninteractive prevents apt-get from prompting
-## after certain packages are added.
-##
-## --no-install-recommends avoids installing recommended but not
-## required packages, e.g. xterm.
-##
-RUN apt-get update \
-&& DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
-    binutils \
-    ca-certificates \
-    file \
-    gcc \
-    libc-dev \
-    libgmp-dev \
-    libltdl-dev \
-    libreadline-dev \
-    make \
-    wget \
-&& rm -rf /var/lib/apt/lists/*
-
-# Download and build Guile 1.8.8.
-RUN wget -q https://ftp.gnu.org/gnu/guile/guile-1.8.8.tar.gz \
-&& tar xf guile-1.8.8.tar.gz \
-&& mkdir build-guile1.8 \
-&& cd build-guile1.8 \
-&& CPPFLAGS="\
-   -fno-inline-functions \
-   -Wno-error=deprecated-declarations \
-   -Wno-error=misleading-indentation \
-   -Wno-error=stringop-overflow \
-   -Wno-error=unused-but-set-variable \
-   " /guile-1.8.8/configure --prefix=/usr \
-&& make -j$(nproc) \
-&& make install-strip DESTDIR=/install-guile1.8
-
-###########################################################################
 # lilypond-base: minimal image for running lilypond and its scripts
 ###########################################################################
-FROM ubuntu:21.10 as lilypond-base
-
-COPY --from=external /install-guile1.8/ /
+FROM ubuntu:22.04 as lilypond-base
 
 ## The fonts-texgyre package (the preferred default fonts) is not
 ## strictly required, since LilyPond can fall back on other fonts, but
@@ -54,6 +12,7 @@ RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
     fonts-texgyre \
     ghostscript \
+    guile-2.2 \
     libpangoft2-1.0-0 \
     python-is-python3 \
     python3 \
@@ -129,6 +88,7 @@ RUN apt-get update \
     gettext \
     git \
     groff \
+    guile-2.2-dev \
     help2man \
     imagemagick \
     less \
