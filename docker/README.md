@@ -45,7 +45,7 @@ tools.
 
 2. Start the "lilydev" container:
    
-       $ docker-compose up -d lilydev
+       $ ./do start lilydev
 
 3. (Optional) Mount the build directory, which Docker manages
    internally, onto the host.  This makes it easy to review build
@@ -55,7 +55,7 @@ tools.
 
 4. Log into the container:
    
-       $ ./enter lilydev
+       $ ./do enter lilydev
    
    This command may be used multiple times.  It executes a new login
    shell each time.
@@ -71,7 +71,7 @@ tools.
 
 6. When you are done working, type Ctrl-D and clean up:
    
-       $ docker-compose down
+       $ ./do stop
    
     :warning: This command shuts down all running services defined in
     `docker-compose.yaml`.  If both "lilydev" and "lilypond"

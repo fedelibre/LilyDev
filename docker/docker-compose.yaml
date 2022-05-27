@@ -11,7 +11,10 @@ services:
         context: .
         target: lilypond-dev
 
+    # LILYPOND_BUILD_DIR informs certain helper scripts that the build
+    # directory is not the source directory.
     environment:
+      - LILYPOND_BUILD_DIR=/home/user/lilypond-build
       - PYTHONPATH=/home/user/lilypond-src/python
 
     ports:
@@ -31,7 +34,11 @@ services:
         source: lilypond-build
         target: /home/user/lilypond-build
 
-    entrypoint: /bin/bash -c "sudo service smbd start && tail -f /dev/null"
+    # HOST_GID and HOST_UID are set in the "do" wrapper script.
+    entrypoint: /bin/bash -c "\
+           sudo service smbd start \
+        && sudo usermod -g ${HOST_GID:-X} -u ${HOST_UID:-X} user \
+        && tail -f /dev/null"
     stdin_open: false
     tty: false
 
@@ -79,7 +86,10 @@ services:
         target: /home/user/user-src
         read_only: true
 
-    entrypoint: tail -f /dev/null
+    # HOST_GID and HOST_UID are set in the "do" wrapper script.
+    entrypoint: /bin/bash -c "\
+           sudo usermod -g ${HOST_GID:-X} -u ${HOST_UID:-X} user \
+        && tail -f /dev/null"
     stdin_open: false
     tty: false
 
