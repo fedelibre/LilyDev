@@ -99,6 +99,7 @@ RUN apt-get update \
     libgs-dev \
     libltdl-dev \
     libpango1.0-dev \
+    lmodern \
     m4 \
     make \
     mftrace \
@@ -111,6 +112,7 @@ RUN apt-get update \
     texi2html \
     texinfo \
     texlive-fonts-recommended \
+    texlive-font-utils \
     texlive-lang-cyrillic \
     texlive-latex-base \
     texlive-latex-recommended \
