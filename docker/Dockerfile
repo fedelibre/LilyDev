@@ -83,7 +83,8 @@ RUN apt-get update \
     fonts-linuxlibertine \
     fonts-noto-cjk \
     fonts-urw-base35 \
-    g++ \
+    g++-12 \
+    gcc-12 \
     gdb \
     gettext \
     git \
@@ -122,6 +123,8 @@ RUN apt-get update \
     tidy \
     ttf-bitstream-vera \
     zip \
+&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 1200 \
+                       --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
 && rm -rf /var/lib/apt/lists/*
 
 # Support sharing the build directory with Samba.  If you don't need
