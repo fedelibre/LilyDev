@@ -26,7 +26,7 @@ RUN useradd -m -s /bin/bash user \
 && sudo -u user touch ~user/.sudo_as_admin_successful
 
 USER user
-COPY ./install/base_bashrc_addendum /home/user/base_bashrc_addendum
+COPY --chown=user:user ./install/base_bashrc_addendum /home/user/base_bashrc_addendum
 RUN cat ~/base_bashrc_addendum >> ~/.bashrc && rm ~/base_bashrc_addendum \
 && mkdir ~/lilypond-build
 
