@@ -1,15 +1,18 @@
 ###########################################################################
 # lilypond-base: minimal image for running lilypond and its scripts
 ###########################################################################
-FROM ubuntu:22.04 as lilypond-base
+FROM ubuntu:23.04 as lilypond-base
 
 ## The fonts-texgyre package (the preferred default fonts) is not
 ## strictly required, since LilyPond can fall back on other fonts, but
 ## it is convenient to include in the base image so that it is
 ## consistently available in derived images.
 ##
+## TODO: Don't install adduser? or remove it when we're finished with it?
+##
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+    adduser \
     fonts-texgyre \
     ghostscript \
     guile-2.2 \
@@ -70,7 +73,6 @@ FROM lilypond-base as lilypond-dev
 USER root
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
-    astyle \
     autoconf \
     autotools-dev \
     bison \
@@ -83,8 +85,8 @@ RUN apt-get update \
     fonts-linuxlibertine \
     fonts-noto-cjk \
     fonts-urw-base35 \
-    g++-12 \
-    gcc-12 \
+    g++ \
+    gcc \
     gdb \
     gettext \
     git \
@@ -115,16 +117,26 @@ RUN apt-get update \
     texlive-fonts-recommended \
     texlive-font-utils \
     texlive-lang-cyrillic \
-    texlive-latex-base \
-    texlive-latex-recommended \
     texlive-metapost \
     texlive-plain-generic \
     texlive-xetex \
     tidy \
     ttf-bitstream-vera \
     zip \
-&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 1200 \
-                       --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
+&& rm -rf /var/lib/apt/lists/*
+
+# Perl modules for makelsr
+RUN apt-get update \
+&& DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+    cpanminus \
+    libanyevent-forkmanager-perl \
+    libdbd-mysql-perl \
+    libfile-which-perl \
+    libipc-run3-perl \
+    pandoc \
+&& cpanm module MySQL::Dump::Parser::XS \
+&& DEBIAN_FRONTEND=noninteractive apt-get remove -y cpanminus \
+&& DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
 && rm -rf /var/lib/apt/lists/*
 
 # Support sharing the build directory with Samba.  If you don't need
